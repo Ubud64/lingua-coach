@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8f8fb">
+<title>Lingua Coach</title>
+<style>
+:root{
+  --bg:#f7f7fb;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --purple:#7c3aed;
+  --purple2:#9f67ff;
+  --line:#e8e8ef;
+  --shadow:0 10px 30px rgba(20,20,50,.09);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:linear-gradient(180deg,#ffffff 0%,var(--bg) 100%);
+  color:var(--text);
+  min-height:100vh;
+}
+.app{
+  max-width:480px;
+  margin:0 auto;
+  min-height:100vh;
+  padding:calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 24px);
+}
+header{
+  text-align:center;
+  margin:8px 0 18px;
+}
+h1{
+  margin:0;
+  font-size:38px;
+  letter-spacing:-1.2px;
+}
+.subtitle{
+  margin:4px 0 12px;
+  color:var(--muted);
+  font-size:17px;
+}
+.voice-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:999px;
+  color:var(--purple);
+  background:#f2eafe;
+  font-weight:700;
+  font-size:15px;
+}
+.section-title{
+  font-size:20px;
+  font-weight:800;
+  margin:26px 4px 14px;
+}
+.lang-grid{
+  display:grid;
+  gap:12px;
+}
+.lang-card{
+  width:100%;
+  border:0;
+  background:var(--card);
+  border-radius:24px;
+  padding:16px;
+  display:grid;
+  grid-template-columns:58px 1fr 34px;
+  align-items:center;
+  text-align:left;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  border:1px solid rgba(20,20,50,.05);
+}
+.flag{
+  width:54px;height:54px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:37px;background:#fff;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
+}
+.lang-name{
+  font-size:23px;font-weight:850;line-height:1.05;
+}
+.level{
+  margin-top:5px;color:var(--muted);font-size:15px;
+}
+.level b{color:#f97316}
+.stats{
+  display:flex;gap:16px;margin-top:10px;
+  font-size:12px;color:var(--muted);
+}
+.dot{font-size:12px;margin-right:4px}
+.arrow{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;color:var(--purple);background:#f4efff;
+}
+.global-card{
+  margin-top:18px;
+  background:#fff;
+  border-radius:24px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.global-title{font-weight:800;font-size:18px;margin-bottom:12px}
+.global-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.gnum{font-size:22px;font-weight:850}
+.glabel{font-size:11px;color:var(--muted)}
+.primary{
+  width:100%;
+  margin-top:18px;
+  border:0;
+  border-radius:22px;
+  padding:17px 18px;
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  color:#fff;
+  font-size:18px;
+  font-weight:800;
+  box-shadow:0 12px 26px rgba(124,58,237,.28);
+}
+.hidden{display:none!important}
+.detail-head{
+  display:grid;
+  grid-template-columns:44px 1fr;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+.back{
+  width:42px;height:42px;border-radius:50%;border:0;background:#fff;
+  box-shadow:var(--shadow);font-size:25px;
+}
+.detail-card{
+  background:#fff;
+  border-radius:26px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+.detail-card h2{margin:0 0 4px;font-size:30px}
+.detail-card p{margin:0;color:var(--muted)}
+.placeholder{
+  margin-top:16px;
+  padding:18px;
+  border:1px dashed #c9b5ff;
+  background:#faf7ff;
+  border-radius:20px;
+  color:#5b21b6;
+}
+.small-note{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:13px;
+  text-align:center;
+}
+</style>
+</head>
+<body>
+<main class="app">
+  <section id="home">
+    <header>
+      <h1>Lingua Coach 🌍</h1>
+      <div class="subtitle">Ton coach de langues personnel</div>
+      <div class="voice-pill">🎙️ Pratique orale avec ChatGPT</div>
+    </header>
+
+    <div class="section-title">Quelle langue aujourd’hui ?</div>
+
+    <div class="lang-grid">
+      <button class="lang-card" data-lang="Español" data-flag="🇪🇸" data-level="B2">
+        <div class="flag">🇪🇸</div>
+        <div>
+          <div class="lang-name">Español</div>
+          <div class="level">Niveau actuel : <b>B2</b></div>
+          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
+        </div>
+        <div class="arrow">›</div>
+      </button>
+
+      <button class="lang-card" data-lang="English" data-flag="🇬🇧" data-level="B2">
+        <div class="flag">🇬🇧</div>
+        <div>
+          <div class="lang-name">English</div>
+          <div class="level">Niveau actuel : <b>B2</b></div>
+          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
+        </div>
+        <div class="arrow">›</div>
+      </button>
+
+      <button class="lang-card" data-lang="Bahasa Indonesia" data-flag="🇮🇩" data-level="A1">
+        <div class="flag">🇮🇩</div>
+        <div>
+          <div class="lang-name">Bahasa Indonesia</div>
+          <div class="level">Niveau actuel : <b>A1</b></div>
+          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
+        </div>
+        <div class="arrow">›</div>
+      </button>
+
+      <button class="lang-card" data-lang="Kreol Morisien" data-flag="🇲🇺" data-level="A1 · grand débutant">
+        <div class="flag">🇲🇺</div>
+        <div>
+          <div class="lang-name">Kreol Morisien</div>
+          <div class="level">Niveau actuel : <b>A1</b> · grand débutant</div>
+          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
+        </div>
+        <div class="arrow">›</div>
+      </button>
+    </div>
+
+    <div class="global-card">
+      <div class="global-title">📈 Ton activité globale</div>
+      <div class="global-stats">
+        <div><div class="gnum">0</div><div class="glabel">séance</div></div>
+        <div><div class="gnum">0 h</div><div class="glabel">oral</div></div>
+        <div><div class="gnum">0</div><div class="glabel">exercice</div></div>
+        <div><div class="gnum">0</div><div class="glabel">jour</div></div>
+      </div>
+    </div>
+
+    <button class="primary" id="prepareBtn">＋ Préparer une nouvelle séance</button>
+    <div class="small-note">V0 · Test de l’accueil et du choix de langue uniquement</div>
+  </section>
+
+  <section id="detail" class="hidden">
+    <div class="detail-head">
+      <button class="back" id="backBtn">‹</button>
+      <div>
+        <div style="font-size:13px;color:#6b7280">Langue sélectionnée</div>
+        <div id="detailTitle" style="font-size:27px;font-weight:850"></div>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <h2 id="detailHeading"></h2>
+      <p id="detailLevel"></p>
+      <div class="placeholder">
+        ✅ Le choix de langue fonctionne.<br><br>
+        La prochaine étape sera de construire ici l’écran <b>Préparer ma séance</b> avec niveau, thème, durée et nombre de questions.
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const home = document.getElementById('home');
+const detail = document.getElementById('detail');
+const detailTitle = document.getElementById('detailTitle');
+const detailHeading = document.getElementById('detailHeading');
+const detailLevel = document.getElementById('detailLevel');
+
+function openLanguage(name, flag, level){
+  detailTitle.textContent = flag + ' ' + name;
+  detailHeading.textContent = flag + ' ' + name;
+  detailLevel.textContent = 'Niveau actuel : ' + level;
+  home.classList.add('hidden');
+  detail.classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+document.querySelectorAll('.lang-card').forEach(card=>{
+  card.addEventListener('click', ()=>openLanguage(card.dataset.lang, card.dataset.flag, card.dataset.level));
+});
+document.getElementById('backBtn').addEventListener('click', ()=>{
+  detail.classList.add('hidden');
+  home.classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'instant'});
+});
+document.getElementById('prepareBtn').addEventListener('click', ()=>{
+  alert('Choisis d’abord une langue.');
+});
+</script>
+</body>
+</html>
