@@ -3,276 +3,129 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f8f8fb">
+<meta name="theme-color" content="#ffffff">
 <title>Lingua Coach</title>
 <style>
-:root{
-  --bg:#f7f7fb;
-  --card:#ffffff;
-  --text:#111827;
-  --muted:#6b7280;
-  --purple:#7c3aed;
-  --purple2:#9f67ff;
-  --line:#e8e8ef;
-  --shadow:0 10px 30px rgba(20,20,50,.09);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
-  background:linear-gradient(180deg,#ffffff 0%,var(--bg) 100%);
-  color:var(--text);
-  min-height:100vh;
-}
-.app{
-  max-width:480px;
-  margin:0 auto;
-  min-height:100vh;
-  padding:calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 24px);
-}
-header{
-  text-align:center;
-  margin:8px 0 18px;
-}
-h1{
-  margin:0;
-  font-size:38px;
-  letter-spacing:-1.2px;
-}
-.subtitle{
-  margin:4px 0 12px;
-  color:var(--muted);
-  font-size:17px;
-}
-.voice-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 16px;
-  border-radius:999px;
-  color:var(--purple);
-  background:#f2eafe;
-  font-weight:700;
-  font-size:15px;
-}
-.section-title{
-  font-size:20px;
-  font-weight:800;
-  margin:26px 4px 14px;
-}
-.lang-grid{
-  display:grid;
-  gap:12px;
-}
-.lang-card{
-  width:100%;
-  border:0;
-  background:var(--card);
-  border-radius:24px;
-  padding:16px;
-  display:grid;
-  grid-template-columns:58px 1fr 34px;
-  align-items:center;
-  text-align:left;
-  box-shadow:var(--shadow);
-  cursor:pointer;
-  border:1px solid rgba(20,20,50,.05);
-}
-.flag{
-  width:54px;height:54px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:37px;background:#fff;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
-}
-.lang-name{
-  font-size:23px;font-weight:850;line-height:1.05;
-}
-.level{
-  margin-top:5px;color:var(--muted);font-size:15px;
-}
-.level b{color:#f97316}
-.stats{
-  display:flex;gap:16px;margin-top:10px;
-  font-size:12px;color:var(--muted);
-}
-.dot{font-size:12px;margin-right:4px}
-.arrow{
-  width:34px;height:34px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;color:var(--purple);background:#f4efff;
-}
-.global-card{
-  margin-top:18px;
-  background:#fff;
-  border-radius:24px;
-  padding:16px;
-  box-shadow:var(--shadow);
-}
+:root{--bg:#f7f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--purple:#7c3aed;--purple2:#9f67ff;--blue:#0a8cf5;--line:#e8e8ef;--soft:#f5efff;--orange:#f97316;--shadow:0 10px 30px rgba(20,20,50,.09)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+button{font:inherit}
+.app{max-width:480px;margin:0 auto;min-height:100vh;padding:calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 34px)}
+header{text-align:center;margin:8px 0 18px}
+h1{margin:0;font-size:38px;letter-spacing:-1.2px}
+.subtitle{margin:4px 0 12px;color:var(--muted);font-size:17px}
+.voice-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;color:var(--purple);background:#f2eafe;font-weight:750;font-size:15px}
+.section-title{font-size:20px;font-weight:850;margin:26px 4px 14px}
+.lang-grid{display:grid;gap:12px}
+.lang-card{width:100%;border:1px solid rgba(20,20,50,.05);background:var(--card);border-radius:24px;padding:16px;display:grid;grid-template-columns:58px 1fr 34px;align-items:center;text-align:left;box-shadow:var(--shadow);cursor:pointer}
+.flag{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:37px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.lang-name{font-size:23px;font-weight:850;line-height:1.06;color:var(--blue)}
+.level{margin-top:5px;color:var(--muted);font-size:15px}.level b{color:var(--orange)}
+.stats{display:flex;gap:12px;margin-top:10px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.arrow{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--purple);background:#f4efff}
+.global-card{margin-top:18px;background:#fff;border-radius:24px;padding:16px;box-shadow:var(--shadow)}
 .global-title{font-weight:800;font-size:18px;margin-bottom:12px}
 .global-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
-.gnum{font-size:22px;font-weight:850}
-.glabel{font-size:11px;color:var(--muted)}
-.primary{
-  width:100%;
-  margin-top:18px;
-  border:0;
-  border-radius:22px;
-  padding:17px 18px;
-  background:linear-gradient(135deg,var(--purple),var(--purple2));
-  color:#fff;
-  font-size:18px;
-  font-weight:800;
-  box-shadow:0 12px 26px rgba(124,58,237,.28);
-}
+.gnum{font-size:22px;font-weight:850}.glabel{font-size:11px;color:var(--muted)}
 .hidden{display:none!important}
-.detail-head{
-  display:grid;
-  grid-template-columns:44px 1fr;
-  align-items:center;
-  gap:10px;
-  margin-bottom:18px;
-}
-.back{
-  width:42px;height:42px;border-radius:50%;border:0;background:#fff;
-  box-shadow:var(--shadow);font-size:25px;
-}
-.detail-card{
-  background:#fff;
-  border-radius:26px;
-  padding:20px;
-  box-shadow:var(--shadow);
-}
-.detail-card h2{margin:0 0 4px;font-size:30px}
-.detail-card p{margin:0;color:var(--muted)}
-.placeholder{
-  margin-top:16px;
-  padding:18px;
-  border:1px dashed #c9b5ff;
-  background:#faf7ff;
-  border-radius:20px;
-  color:#5b21b6;
-}
-.small-note{
-  margin-top:14px;
-  color:var(--muted);
-  font-size:13px;
-  text-align:center;
-}
+.detail-head{display:grid;grid-template-columns:44px 1fr;align-items:center;gap:10px;margin:8px 0 16px}
+.back{width:42px;height:42px;border-radius:50%;border:0;background:#fff;box-shadow:var(--shadow);color:var(--blue);font-size:28px;font-weight:700}
+.kicker{font-size:13px;color:var(--muted)}
+.detail-title{font-size:28px;font-weight:880;line-height:1.1}
+.hero{background:#fff;border-radius:26px;padding:18px;box-shadow:var(--shadow);display:grid;grid-template-columns:62px 1fr;gap:14px;align-items:center}
+.hero .flag{width:58px;height:58px;font-size:40px}
+.hero-name{font-size:27px;font-weight:870}
+.hero-level{color:var(--muted);font-size:16px;margin-top:3px}.hero-level b{color:var(--orange)}
+.panel{margin-top:14px;background:#fff;border-radius:26px;padding:18px;box-shadow:var(--shadow)}
+.panel-title{font-size:19px;font-weight:850;margin-bottom:16px}
+.row{margin-bottom:18px}.row:last-child{margin-bottom:0}
+.label{font-size:14px;font-weight:800;margin:0 0 9px 2px}
+.choices{display:flex;gap:8px;flex-wrap:wrap}
+.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 13px;color:#374151;font-weight:700;min-width:48px;cursor:pointer}
+.choice.active{border-color:var(--purple);background:var(--soft);color:var(--purple);box-shadow:0 0 0 1px rgba(124,58,237,.08)}
+.themes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.theme{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 8px;color:#374151;font-weight:700;text-align:center;cursor:pointer;font-size:14px}
+.theme.active{border-color:var(--purple);background:var(--soft);color:var(--purple)}
+.summary{margin-top:14px;background:#faf7ff;border:1px solid #e3d7ff;border-radius:20px;padding:15px}
+.summary-title{font-weight:850;color:#5b21b6;margin-bottom:8px}
+.summary-text{color:#5b21b6;font-size:14px;line-height:1.45}
+.primary{width:100%;margin-top:16px;border:0;border-radius:22px;padding:17px 18px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;font-size:18px;font-weight:850;box-shadow:0 12px 26px rgba(124,58,237,.28);cursor:pointer}
+.small-note{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:390px){h1{font-size:34px}.lang-name{font-size:21px}.stats{gap:8px}}
 </style>
 </head>
 <body>
 <main class="app">
-  <section id="home">
-    <header>
-      <h1>Lingua Coach 🌍</h1>
-      <div class="subtitle">Ton coach de langues personnel</div>
-      <div class="voice-pill">🎙️ Pratique orale avec ChatGPT</div>
-    </header>
+<section id="home">
+<header>
+<h1>Lingua Coach 🌍</h1>
+<div class="subtitle">Ton coach de langues personnel</div>
+<div class="voice-pill">🎙️ Pratique orale avec ChatGPT</div>
+</header>
+<div class="section-title">Quelle langue aujourd’hui ?</div>
+<div class="lang-grid">
+<button class="lang-card" data-code="es" data-lang="Español" data-flag="🇪🇸" data-default="B2"><div class="flag">🇪🇸</div><div><div class="lang-name">Español</div><div class="level">Niveau actuel : <b>B2</b></div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
+<button class="lang-card" data-code="en" data-lang="English" data-flag="🇬🇧" data-default="B2"><div class="flag">🇬🇧</div><div><div class="lang-name">English</div><div class="level">Niveau actuel : <b>B2</b></div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
+<button class="lang-card" data-code="id" data-lang="Bahasa Indonesia" data-flag="🇮🇩" data-default="A1"><div class="flag">🇮🇩</div><div><div class="lang-name">Bahasa Indonesia</div><div class="level">Niveau actuel : <b>A1</b></div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
+<button class="lang-card" data-code="mfe" data-lang="Kreol Morisien" data-flag="🇲🇺" data-default="A1"><div class="flag">🇲🇺</div><div><div class="lang-name">Kreol Morisien</div><div class="level">Niveau actuel : <b>A1</b> · grand débutant</div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
+</div>
+<div class="global-card"><div class="global-title">📈 Ton activité globale</div><div class="global-stats"><div><div class="gnum">0</div><div class="glabel">séance</div></div><div><div class="gnum">0 h</div><div class="glabel">oral</div></div><div><div class="gnum">0</div><div class="glabel">exercice</div></div><div><div class="gnum">0</div><div class="glabel">jour</div></div></div></div>
+</section>
 
-    <div class="section-title">Quelle langue aujourd’hui ?</div>
+<section id="detail" class="hidden">
+<div class="detail-head"><button class="back" id="backBtn">‹</button><div><div class="kicker">Langue sélectionnée</div><div class="detail-title" id="detailTitle"></div></div></div>
+<div class="hero"><div class="flag" id="heroFlag"></div><div><div class="hero-name" id="heroName"></div><div class="hero-level" id="heroLevel"></div></div></div>
 
-    <div class="lang-grid">
-      <button class="lang-card" data-lang="Español" data-flag="🇪🇸" data-level="B2">
-        <div class="flag">🇪🇸</div>
-        <div>
-          <div class="lang-name">Español</div>
-          <div class="level">Niveau actuel : <b>B2</b></div>
-          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
-        </div>
-        <div class="arrow">›</div>
-      </button>
+<div class="panel">
+<div class="panel-title">🎯 Préparer ma séance</div>
+<div class="row"><div class="label">Niveau</div><div class="choices" id="levels">
+<button class="choice" data-value="A1">A1</button><button class="choice" data-value="A2">A2</button><button class="choice" data-value="B1">B1</button><button class="choice" data-value="B2">B2</button><button class="choice" data-value="C1">C1</button>
+</div></div>
+<div class="row"><div class="label">Thème</div><div class="themes" id="themes">
+<button class="theme active" data-value="Vie quotidienne">Vie quotidienne</button>
+<button class="theme" data-value="Voyage">Voyage</button>
+<button class="theme" data-value="Actualité">Actualité</button>
+<button class="theme" data-value="Culture">Culture</button>
+<button class="theme" data-value="Gastronomie">Gastronomie</button>
+<button class="theme" data-value="Société">Société</button>
+<button class="theme" data-value="Cinéma">Cinéma</button>
+<button class="theme" data-value="Nature">Nature</button>
+<button class="theme" data-value="Histoire">Histoire</button>
+<button class="theme" data-value="Psychologie">Psychologie</button>
+<button class="theme" data-value="Sciences et technologie">Sciences & technologie</button>
+<button class="theme" data-value="Art et littérature">Art & littérature</button>
+<button class="theme" data-value="Corée">🇰🇷 Corée</button>
+<button class="theme" data-value="Île Maurice">🇲🇺 Île Maurice</button>
+<button class="theme" data-value="Surprise">🎲 Surprise</button>
+</div></div>
+<div class="row"><div class="label">Durée de lecture</div><div class="choices" id="durations">
+<button class="choice active" data-value="3">3 min</button><button class="choice" data-value="4">4</button><button class="choice" data-value="5">5</button><button class="choice" data-value="6">6</button><button class="choice" data-value="7">7</button><button class="choice" data-value="8">8</button><button class="choice" data-value="9">9</button><button class="choice" data-value="10">10</button>
+</div></div>
+<div class="row"><div class="label">Questions de compréhension</div><div class="choices" id="questions">
+<button class="choice active" data-value="3">3</button><button class="choice" data-value="4">4</button><button class="choice" data-value="5">5</button>
+</div></div>
+</div>
 
-      <button class="lang-card" data-lang="English" data-flag="🇬🇧" data-level="B2">
-        <div class="flag">🇬🇧</div>
-        <div>
-          <div class="lang-name">English</div>
-          <div class="level">Niveau actuel : <b>B2</b></div>
-          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
-        </div>
-        <div class="arrow">›</div>
-      </button>
-
-      <button class="lang-card" data-lang="Bahasa Indonesia" data-flag="🇮🇩" data-level="A1">
-        <div class="flag">🇮🇩</div>
-        <div>
-          <div class="lang-name">Bahasa Indonesia</div>
-          <div class="level">Niveau actuel : <b>A1</b></div>
-          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
-        </div>
-        <div class="arrow">›</div>
-      </button>
-
-      <button class="lang-card" data-lang="Kreol Morisien" data-flag="🇲🇺" data-level="A1 · grand débutant">
-        <div class="flag">🇲🇺</div>
-        <div>
-          <div class="lang-name">Kreol Morisien</div>
-          <div class="level">Niveau actuel : <b>A1</b> · grand débutant</div>
-          <div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div>
-        </div>
-        <div class="arrow">›</div>
-      </button>
-    </div>
-
-    <div class="global-card">
-      <div class="global-title">📈 Ton activité globale</div>
-      <div class="global-stats">
-        <div><div class="gnum">0</div><div class="glabel">séance</div></div>
-        <div><div class="gnum">0 h</div><div class="glabel">oral</div></div>
-        <div><div class="gnum">0</div><div class="glabel">exercice</div></div>
-        <div><div class="gnum">0</div><div class="glabel">jour</div></div>
-      </div>
-    </div>
-
-    <button class="primary" id="prepareBtn">＋ Préparer une nouvelle séance</button>
-    <div class="small-note">V0 · Test de l’accueil et du choix de langue uniquement</div>
-  </section>
-
-  <section id="detail" class="hidden">
-    <div class="detail-head">
-      <button class="back" id="backBtn">‹</button>
-      <div>
-        <div style="font-size:13px;color:#6b7280">Langue sélectionnée</div>
-        <div id="detailTitle" style="font-size:27px;font-weight:850"></div>
-      </div>
-    </div>
-
-    <div class="detail-card">
-      <h2 id="detailHeading"></h2>
-      <p id="detailLevel"></p>
-      <div class="placeholder">
-        ✅ Le choix de langue fonctionne.<br><br>
-        La prochaine étape sera de construire ici l’écran <b>Préparer ma séance</b> avec niveau, thème, durée et nombre de questions.
-      </div>
-    </div>
-  </section>
+<div class="summary"><div class="summary-title">Ta séance</div><div class="summary-text" id="summaryText"></div></div>
+<button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
+<div class="small-note">V1 · Réglages de séance uniquement. ChatGPT sera branché à l’étape suivante.</div>
+</section>
 </main>
 
 <script>
-const home = document.getElementById('home');
-const detail = document.getElementById('detail');
-const detailTitle = document.getElementById('detailTitle');
-const detailHeading = document.getElementById('detailHeading');
-const detailLevel = document.getElementById('detailLevel');
-
-function openLanguage(name, flag, level){
-  detailTitle.textContent = flag + ' ' + name;
-  detailHeading.textContent = flag + ' ' + name;
-  detailLevel.textContent = 'Niveau actuel : ' + level;
-  home.classList.add('hidden');
-  detail.classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'instant'});
-}
-document.querySelectorAll('.lang-card').forEach(card=>{
-  card.addEventListener('click', ()=>openLanguage(card.dataset.lang, card.dataset.flag, card.dataset.level));
-});
-document.getElementById('backBtn').addEventListener('click', ()=>{
-  detail.classList.add('hidden');
-  home.classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'instant'});
-});
-document.getElementById('prepareBtn').addEventListener('click', ()=>{
-  alert('Choisis d’abord une langue.');
-});
+const state={code:null,lang:null,flag:null,level:null,theme:"Vie quotidienne",duration:"3",questions:"3"};
+const home=document.getElementById("home"),detail=document.getElementById("detail"),detailTitle=document.getElementById("detailTitle"),heroFlag=document.getElementById("heroFlag"),heroName=document.getElementById("heroName"),heroLevel=document.getElementById("heroLevel"),summaryText=document.getElementById("summaryText");
+function updateSummary(){let extra=state.code==="mfe"&&state.level==="A1"?" · grand débutant":"";summaryText.textContent=`${state.flag} ${state.lang} · ${state.level}${extra} · ${state.theme} · ${state.duration} min de lecture · ${state.questions} questions`;}
+function setActive(id,value){document.querySelectorAll(`#${id} [data-value]`).forEach(b=>b.classList.toggle("active",b.dataset.value===String(value)));}
+function openLanguage(card){state.code=card.dataset.code;state.lang=card.dataset.lang;state.flag=card.dataset.flag;state.level=card.dataset.default;state.theme="Vie quotidienne";state.duration="3";state.questions="3";detailTitle.textContent=`${state.flag} ${state.lang}`;heroFlag.textContent=state.flag;heroName.textContent=state.lang;heroLevel.innerHTML=`Niveau actuel : <b>${state.level}</b>${state.code==="mfe"?" · grand débutant":""}`;setActive("levels",state.level);setActive("themes",state.theme);setActive("durations",state.duration);setActive("questions",state.questions);updateSummary();home.classList.add("hidden");detail.classList.remove("hidden");window.scrollTo({top:0,behavior:"instant"});}
+document.querySelectorAll(".lang-card").forEach(card=>card.addEventListener("click",()=>openLanguage(card)));
+document.getElementById("backBtn").addEventListener("click",()=>{detail.classList.add("hidden");home.classList.remove("hidden");window.scrollTo({top:0,behavior:"instant"});});
+document.querySelectorAll("#levels .choice").forEach(btn=>btn.addEventListener("click",()=>{state.level=btn.dataset.value;setActive("levels",state.level);heroLevel.innerHTML=`Niveau actuel : <b>${state.level}</b>${state.code==="mfe"&&state.level==="A1"?" · grand débutant":""}`;updateSummary();}));
+document.querySelectorAll("#themes .theme").forEach(btn=>btn.addEventListener("click",()=>{state.theme=btn.dataset.value;setActive("themes",state.theme);updateSummary();}));
+document.querySelectorAll("#durations .choice").forEach(btn=>btn.addEventListener("click",()=>{state.duration=btn.dataset.value;setActive("durations",state.duration);updateSummary();}));
+document.querySelectorAll("#questions .choice").forEach(btn=>btn.addEventListener("click",()=>{state.questions=btn.dataset.value;setActive("questions",state.questions);updateSummary();}));
+document.getElementById("prepareBtn").addEventListener("click",()=>alert("✅ Les réglages de séance fonctionnent. Le branchement vers ChatGPT arrive à l’étape suivante."));
 </script>
 </body>
 </html>
