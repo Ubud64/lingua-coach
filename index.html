@@ -50,7 +50,17 @@ h1{margin:0;font-size:38px;letter-spacing:-1.2px}
 .summary{margin-top:14px;background:#faf7ff;border:1px solid #e3d7ff;border-radius:20px;padding:15px}
 .summary-title{font-weight:850;color:#5b21b6;margin-bottom:8px}
 .summary-text{color:#5b21b6;font-size:14px;line-height:1.45}
-.primary{width:100%;margin-top:16px;border:0;border-radius:22px;padding:17px 18px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;font-size:18px;font-weight:850;box-shadow:0 12px 26px rgba(124,58,237,.28);cursor:pointer}
+.primary,.secondary{width:100%;border:0;border-radius:22px;padding:17px 18px;font-size:18px;font-weight:850;cursor:pointer}
+.primary{margin-top:16px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 12px 26px rgba(124,58,237,.28)}
+.secondary{margin-top:12px;background:#fff;color:var(--purple);border:1px solid #d9c8ff;box-shadow:var(--shadow)}
+.ready-card{background:#fff;border-radius:26px;padding:20px;box-shadow:var(--shadow)}
+.ready-card h2{font-size:28px;margin:0 0 6px}
+.ready-card p{color:var(--muted);line-height:1.45;margin:0}
+.project-box{margin-top:16px;padding:14px;border-radius:18px;background:#f8f5ff;border:1px solid #e5dbff}
+.project-label{font-size:12px;color:#6b7280;font-weight:750;margin-bottom:4px}
+.project-name{font-size:17px;font-weight:850;color:#5b21b6}
+.prompt-box{margin-top:14px;padding:16px;border-radius:18px;background:#f8fafc;border:1px solid #e5e7eb;font-size:14px;line-height:1.55;white-space:pre-wrap}
+.status{margin-top:12px;text-align:center;font-size:14px;font-weight:800;color:#16a34a;min-height:20px}
 .small-note{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:390px){h1{font-size:34px}.lang-name{font-size:21px}.stats{gap:8px}}
 </style>
@@ -109,23 +119,45 @@ h1{margin:0;font-size:38px;letter-spacing:-1.2px}
 
 <div class="summary"><div class="summary-title">Ta séance</div><div class="summary-text" id="summaryText"></div></div>
 <button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
-<div class="small-note">V1 · Réglages de séance uniquement. ChatGPT sera branché à l’étape suivante.</div>
+<div class="small-note">V2 · Préparation et copie de la consigne</div>
+</section>
+
+<section id="ready" class="hidden">
+<div class="detail-head"><button class="back" id="readyBackBtn">‹</button><div><div class="kicker">Séance prête</div><div class="detail-title">🎙️ Direction ChatGPT</div></div></div>
+<div class="ready-card">
+<h2 id="readyTitle"></h2>
+<p>Ta consigne est prête. Copie-la puis ouvre ChatGPT.</p>
+<div class="project-box"><div class="project-label">Projet ChatGPT à ouvrir</div><div class="project-name" id="projectName"></div></div>
+<div class="prompt-box" id="promptBox"></div>
+<button class="primary" id="copyBtn">📋 Copier la consigne</button>
+<div class="status" id="copyStatus"></div>
+<button class="secondary" id="openChatGPTBtn">💬 Ouvrir ChatGPT</button>
+<div class="small-note">Dans ChatGPT, ouvre le projet indiqué ci-dessus, colle la consigne et envoie-la.</div>
+</div>
 </section>
 </main>
 
 <script>
 const state={code:null,lang:null,flag:null,level:null,theme:"Vie quotidienne",duration:"3",questions:"3"};
-const home=document.getElementById("home"),detail=document.getElementById("detail"),detailTitle=document.getElementById("detailTitle"),heroFlag=document.getElementById("heroFlag"),heroName=document.getElementById("heroName"),heroLevel=document.getElementById("heroLevel"),summaryText=document.getElementById("summaryText");
+const projects={es:"Lingua Coach · Español 🇪🇸",en:"Lingua Coach · English 🇬🇧",id:"Lingua Coach · Bahasa Indonesia 🇮🇩",mfe:"Lingua Coach · Kreol Morisien 🇲🇺"};
+const home=document.getElementById("home"),detail=document.getElementById("detail"),ready=document.getElementById("ready"),detailTitle=document.getElementById("detailTitle"),heroFlag=document.getElementById("heroFlag"),heroName=document.getElementById("heroName"),heroLevel=document.getElementById("heroLevel"),summaryText=document.getElementById("summaryText");
+function showOnly(section){[home,detail,ready].forEach(s=>s.classList.add("hidden"));section.classList.remove("hidden");window.scrollTo({top:0,behavior:"instant"});}
 function updateSummary(){let extra=state.code==="mfe"&&state.level==="A1"?" · grand débutant":"";summaryText.textContent=`${state.flag} ${state.lang} · ${state.level}${extra} · ${state.theme} · ${state.duration} min de lecture · ${state.questions} questions`;}
 function setActive(id,value){document.querySelectorAll(`#${id} [data-value]`).forEach(b=>b.classList.toggle("active",b.dataset.value===String(value)));}
-function openLanguage(card){state.code=card.dataset.code;state.lang=card.dataset.lang;state.flag=card.dataset.flag;state.level=card.dataset.default;state.theme="Vie quotidienne";state.duration="3";state.questions="3";detailTitle.textContent=`${state.flag} ${state.lang}`;heroFlag.textContent=state.flag;heroName.textContent=state.lang;heroLevel.innerHTML=`Niveau actuel : <b>${state.level}</b>${state.code==="mfe"?" · grand débutant":""}`;setActive("levels",state.level);setActive("themes",state.theme);setActive("durations",state.duration);setActive("questions",state.questions);updateSummary();home.classList.add("hidden");detail.classList.remove("hidden");window.scrollTo({top:0,behavior:"instant"});}
+function updateHero(){detailTitle.textContent=`${state.flag} ${state.lang}`;heroFlag.textContent=state.flag;heroName.textContent=state.lang;heroLevel.innerHTML=`Niveau actuel : <b>${state.level}</b>${state.code==="mfe"&&state.level==="A1"?" · grand débutant":""}`;}
+function openLanguage(card){state.code=card.dataset.code;state.lang=card.dataset.lang;state.flag=card.dataset.flag;state.level=card.dataset.default;state.theme="Vie quotidienne";state.duration="3";state.questions="3";updateHero();setActive("levels",state.level);setActive("themes",state.theme);setActive("durations",state.duration);setActive("questions",state.questions);updateSummary();showOnly(detail);}
+function buildPrompt(){const levelText=state.code==="mfe"&&state.level==="A1"?"A1 grand débutant":state.level;return `SESSION LINGUA COACH\nNiveau : ${levelText}\nThème : ${state.theme}\nDurée de lecture : ${state.duration} minutes\nQuestions de compréhension : ${state.questions}\nMode : principalement oral\n\nCommence la séance maintenant.`;}
 document.querySelectorAll(".lang-card").forEach(card=>card.addEventListener("click",()=>openLanguage(card)));
-document.getElementById("backBtn").addEventListener("click",()=>{detail.classList.add("hidden");home.classList.remove("hidden");window.scrollTo({top:0,behavior:"instant"});});
-document.querySelectorAll("#levels .choice").forEach(btn=>btn.addEventListener("click",()=>{state.level=btn.dataset.value;setActive("levels",state.level);heroLevel.innerHTML=`Niveau actuel : <b>${state.level}</b>${state.code==="mfe"&&state.level==="A1"?" · grand débutant":""}`;updateSummary();}));
+document.getElementById("backBtn").addEventListener("click",()=>showOnly(home));
+document.getElementById("readyBackBtn").addEventListener("click",()=>showOnly(detail));
+document.querySelectorAll("#levels .choice").forEach(btn=>btn.addEventListener("click",()=>{state.level=btn.dataset.value;setActive("levels",state.level);updateHero();updateSummary();}));
 document.querySelectorAll("#themes .theme").forEach(btn=>btn.addEventListener("click",()=>{state.theme=btn.dataset.value;setActive("themes",state.theme);updateSummary();}));
 document.querySelectorAll("#durations .choice").forEach(btn=>btn.addEventListener("click",()=>{state.duration=btn.dataset.value;setActive("durations",state.duration);updateSummary();}));
 document.querySelectorAll("#questions .choice").forEach(btn=>btn.addEventListener("click",()=>{state.questions=btn.dataset.value;setActive("questions",state.questions);updateSummary();}));
-document.getElementById("prepareBtn").addEventListener("click",()=>alert("✅ Les réglages de séance fonctionnent. Le branchement vers ChatGPT arrive à l’étape suivante."));
+document.getElementById("prepareBtn").addEventListener("click",()=>{document.getElementById("readyTitle").textContent=`${state.flag} ${state.lang}`;document.getElementById("projectName").textContent=projects[state.code];document.getElementById("promptBox").textContent=buildPrompt();document.getElementById("copyStatus").textContent="";showOnly(ready);});
+async function copyPrompt(){const text=buildPrompt(),status=document.getElementById("copyStatus");try{await navigator.clipboard.writeText(text);status.textContent="✅ Consigne copiée";}catch(e){const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand("copy");status.textContent="✅ Consigne copiée";}catch(err){status.textContent="⚠️ Maintiens le doigt sur la consigne pour la copier.";}document.body.removeChild(ta);}}
+document.getElementById("copyBtn").addEventListener("click",copyPrompt);
+document.getElementById("openChatGPTBtn").addEventListener("click",()=>{window.location.href="https://chatgpt.com/";});
 </script>
 </body>
 </html>
