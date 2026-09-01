@@ -131,6 +131,15 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 .targetFr{font-size:12px;color:var(--muted);margin-top:3px}
 .reviewBox{background:#fff7ed;border-color:#fed7aa}
 
+
+.pronBox{background:#eef9ff;border-color:#c8e7f7}
+.pronGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.pronRule{background:#fff;border:1px solid #d9ebf5;border-radius:13px;padding:9px 10px;font-size:13px;line-height:1.35}
+.pronRule b{color:var(--accent)}
+.targetPron{font-size:12px;color:#0878a5;font-weight:800;margin-top:5px}
+.phrasePron{font-size:13px;color:#0878a5;font-weight:800;margin-top:4px}
+.repeatCue{margin-top:12px;padding:10px 12px;border-radius:13px;background:#e9fff0;border:1px solid #c7ebd1;font-size:14px;font-weight:850}
+
 </style>
 </head>
 <body>
@@ -171,7 +180,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="savedBody" id="lastReportBody"></div>
 </div>
 
-<div class="version">Lingua Coach V1.7 · 30 cours Kreol</div>
+<div class="version">Lingua Coach V1.8 · Prononciation Kreol</div>
 </section>
 
 
@@ -203,7 +212,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div id="courseModules"></div>
 
-<div class="version">Lingua Coach V1.7 · 30 cours Kreol</div>
+<div class="version">Lingua Coach V1.8 · Prononciation Kreol</div>
 </section>
 
 <section id="courseLesson" class="hidden">
@@ -222,7 +231,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   </div>
 </div>
 
-<div class="version">Lingua Coach V1.7 · Cours complet</div>
+<div class="version">Lingua Coach V1.8 · Cours complet + prononciation</div>
 </section>
 
 <section id="grammar" class="hidden">
@@ -240,7 +249,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="sectionSub">Tes erreurs réelles deviennent de petites fiches, uniquement pour cette langue.</div>
 <div id="grammarList"></div>
-<div class="version">Lingua Coach V1.7 · Grammaire par langue</div>
+<div class="version">Lingua Coach V1.8 · Grammaire par langue</div>
 </section>
 
 <section id="games" class="hidden">
@@ -273,7 +282,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <button class="ghost hidden" id="nextGameBtn">Phrase suivante</button>
   <div class="statsLine" id="gameStats"></div>
 </div>
-<div class="version">Lingua Coach V1.7 · Jeux par langue</div>
+<div class="version">Lingua Coach V1.8 · Jeux par langue</div>
 </section>
 
 <section id="detail" class="hidden">
@@ -310,7 +319,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="summary" id="summary"></div>
 <button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
-<div class="version">Lingua Coach V1.7</div>
+<div class="version">Lingua Coach V1.8</div>
 </section>
 
 <section id="ready" class="hidden">
@@ -349,7 +358,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="status" id="reportStatus"></div>
 </div>
 
-<div class="version">Lingua Coach V1.7</div>
+<div class="version">Lingua Coach V1.8</div>
 </section>
 
 </main>
@@ -488,6 +497,24 @@ document.getElementById("duration").oninput=e=>{
 };
 
 
+
+function pronFr(s){
+  let t=String(s||"").toLowerCase();
+  const keep=[];
+  const hold=(regex,val)=>{t=t.replace(regex,()=>`§${keep.push(val)-1}§`);};
+  hold(/ien/g,"ien");
+  hold(/ou/g,"ou");
+  hold(/gn/g,"gn");
+  hold(/ng/g,"ng");
+  hold(/sh/g,"ch");
+  hold(/ch/g,"tch");
+  t=t.replace(/e/g,"é");
+  t=t.replace(/j/g,"dj");
+  t=t.replace(/w/g,"ou");
+  t=t.replace(/§(\d+)§/g,(_,i)=>keep[Number(i)]);
+  return t;
+}
+
 function normalizeCourseAnswer(s){
   return String(s||"").normalize("NFC").trim().toLowerCase().replace(/[.!?]+$/,"").replace(/\s+/g," ");
 }
@@ -544,11 +571,19 @@ function renderCourseLesson(){
   document.getElementById("lessonGoal").textContent=c.goal;
 
   const targets=c.targets.map(([kr,fr])=>`
-    <div class="targetChip"><div class="targetKr">${escapeHtml(kr)}</div><div class="targetFr">${escapeHtml(fr)}</div></div>
+    <div class="targetChip">
+      <div class="targetKr">${escapeHtml(kr)}</div>
+      <div class="targetFr">${escapeHtml(fr)}</div>
+      <div class="targetPron">🗣️ ${escapeHtml(pronFr(kr))}</div>
+    </div>
   `).join("");
 
   const phrases=c.phrases.map(([kr,fr])=>`
-    <div class="phraseRow"><div class="kreolPhrase">${escapeHtml(kr)}</div><div class="frPhrase">${escapeHtml(fr)}</div></div>
+    <div class="phraseRow">
+      <div class="kreolPhrase">${escapeHtml(kr)}</div>
+      <div class="frPhrase">${escapeHtml(fr)}</div>
+      <div class="phrasePron">🗣️ Lis : ${escapeHtml(pronFr(kr))}</div>
+    </div>
   `).join("");
 
   const dialog=c.dialogue.map(([who,line])=>`<div><b>${escapeHtml(who)} :</b> ${escapeHtml(line)}</div>`).join("");
@@ -560,13 +595,29 @@ function renderCourseLesson(){
 
   document.getElementById("lessonContent").innerHTML=`
     ${review}
+    <div class="lessonBlock pronBox">
+      <div class="lessonBlockTitle">0 · Prononciation d’abord 👂</div>
+      <div>Le Kreol Morisien s’écrit de façon assez phonétique. Pour commencer, utilise cette petite clé et ne cherche pas à lire « à la française ».</div>
+      <div class="pronGrid">
+        <div class="pronRule"><b>a</b> = a · <b>e</b> = é · <b>i</b> = i · <b>o</b> = o</div>
+        <div class="pronRule"><b>ou</b> = ou, comme « tout »</div>
+        <div class="pronRule"><b>an / on / in</b> = voyelles nasales, proches du français</div>
+        <div class="pronRule"><b>nn</b> = le n se prononce vraiment</div>
+        <div class="pronRule"><b>gn</b> = gn · <b>ch</b> = tch · <b>sh</b> = ch</div>
+        <div class="pronRule"><b>j</b> = dj · <b>w</b> = son « oua / oui » très bref</div>
+        <div class="pronRule"><b>h</b> = petit souffle audible, il n’est pas muet</div>
+        <div class="pronRule"><b>r</b> : garde ton r français au début, la communication prime</div>
+      </div>
+      <div class="repeatCue">🎧 Débutant : lis chaque mot 3 fois à voix haute avant de continuer.</div>
+    </div>
     <div class="lessonBlock">
-      <div class="lessonBlockTitle">1 · 10 mots / blocs actifs</div>
+      <div class="lessonBlockTitle">1 · 10 mots / blocs actifs + prononciation</div>
       <div class="courseTargets">${targets}</div>
     </div>
     <div class="lessonBlock">
-      <div class="lessonBlockTitle">2 · Lis et répète à voix haute</div>
+      <div class="lessonBlockTitle">2 · Lis, écoute-toi et répète à voix haute</div>
       ${phrases}
+      <div class="repeatCue">🎙️ Reprends les phrases une deuxième fois sans regarder la ligne bleue.</div>
     </div>
     <div class="lessonBlock bridge">
       <div class="lessonBlockTitle">3 · Pont français / anglais</div>
