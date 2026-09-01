@@ -23,8 +23,42 @@ h1{font-size:36px;letter-spacing:-1px;margin:0}
 .subtitle{font-size:16px;color:var(--muted);margin-top:5px}
 .pill{display:inline-flex;margin-top:12px;padding:9px 14px;background:var(--soft);color:var(--accent);border-radius:999px;font-weight:800;font-size:14px}
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 18px}
+.tabs.four{grid-template-columns:repeat(4,1fr)}
 .tab{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 6px;font-weight:850;color:var(--muted)}
+.tabs.four .tab{font-size:12.5px;padding:10px 3px}
 .tab.active{background:var(--soft);border-color:#c9c1f7;color:var(--accent)}
+
+.courseProgress{background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:var(--shadow);margin:12px 0}
+.courseProgressTop{display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:850}
+.progressTrack{height:10px;background:#ececf4;border-radius:999px;overflow:hidden;margin-top:10px}
+.progressBar{height:100%;background:linear-gradient(90deg,var(--accent),#9b8df5);border-radius:999px;transition:width .2s ease}
+.courseList{display:grid;gap:9px;margin:12px 0 16px}
+.courseBtn{width:100%;display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);background:#fff;border-radius:17px;padding:11px 12px}
+.courseBtn.active{background:var(--soft);border-color:#c9c1f7}
+.courseNum{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f3f4f6;font-weight:900;color:var(--accent)}
+.courseBtn.active .courseNum{background:#fff}
+.courseName{font-weight:850}
+.courseMeta{font-size:12px;color:var(--muted);margin-top:2px}
+.courseDone{font-size:19px}
+.lessonTitle{font-size:27px;font-weight:900;line-height:1.1;margin-bottom:6px}
+.lessonGoal{font-size:14px;color:var(--muted);line-height:1.45}
+.lessonBlock{margin-top:16px;padding:15px;border-radius:18px;background:#fafafa;border:1px solid var(--line)}
+.lessonBlockTitle{font-size:13px;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
+.phraseRow{padding:10px 0;border-bottom:1px solid #eceef4}
+.phraseRow:last-child{border-bottom:0;padding-bottom:0}
+.kreolPhrase{font-size:20px;font-weight:900}
+.frPhrase{font-size:14px;color:var(--muted);margin-top:3px}
+.bridge{background:#fff8e8;border-color:#f4ddb0}
+.ruleBox{background:#eef8ff;border-color:#cfe9fb}
+.dialogue{font-size:16px;line-height:1.65}
+.dialogue b{color:var(--accent)}
+.mission{background:#f4fff5;border-color:#cdebd1}
+.writeExercise{background:#faf7ff;border-color:#e1d7ff}
+.courseInput{width:100%;margin-top:10px;border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}
+.courseFeedback{font-size:14px;font-weight:800;margin-top:9px;min-height:20px}
+.courseActions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.courseActions button{margin:0}
+
 .title{font-size:19px;font-weight:850;margin:18px 4px 12px}
 .languages{display:grid;gap:12px}
 .lang{
@@ -127,7 +161,48 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="savedBody" id="lastReportBody"></div>
 </div>
 
-<div class="version">Lingua Coach V1.5 · Navigation par langue</div>
+<div class="version">Lingua Coach V1.6 · Cours Kreol</div>
+</section>
+
+
+<section id="course" class="hidden">
+<div class="head">
+  <button class="back" id="courseBackBtn">‹</button>
+  <div><div class="kicker">Parcours grand débutant</div><div class="detail-title" id="courseTitle">🇲🇺 Kreol Morisien · Cours</div></div>
+</div>
+
+<div class="tabs four">
+  <button class="tab active courseTab" data-langnav="course">🎓 Cours</button>
+  <button class="tab" data-langnav="detail">🎙️ Séance</button>
+  <button class="tab" data-langnav="grammar">📘 Grammaire</button>
+  <button class="tab" data-langnav="games">🎮 Jeux</button>
+</div>
+
+<div class="sectionSub">
+  On construit d’abord les fondations : phrases courtes, situations mauriciennes, répétition et production. La lecture longue viendra progressivement.
+</div>
+
+<div class="courseProgress">
+  <div class="courseProgressTop">
+    <span>🌱 Parcours de départ</span>
+    <span id="courseProgressText">0 / 8</span>
+  </div>
+  <div class="progressTrack"><div class="progressBar" id="courseProgressBar" style="width:0%"></div></div>
+</div>
+
+<div class="courseList" id="courseList"></div>
+
+<div class="card" id="courseLessonCard">
+  <div class="lessonTitle" id="lessonTitle"></div>
+  <div class="lessonGoal" id="lessonGoal"></div>
+  <div id="lessonContent"></div>
+  <div class="courseActions">
+    <button class="secondary" id="prevCourseBtn">← Précédent</button>
+    <button class="primary" id="completeCourseBtn">✅ Terminé</button>
+  </div>
+</div>
+
+<div class="version">Lingua Coach V1.6 · Cours Kreol</div>
 </section>
 
 <section id="grammar" class="hidden">
@@ -137,6 +212,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 </div>
 
 <div class="tabs">
+  <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
   <button class="tab" data-langnav="detail">🎙️ Séance</button>
   <button class="tab active" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab" data-langnav="games">🎮 Jeux</button>
@@ -144,7 +220,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="sectionSub">Tes erreurs réelles deviennent de petites fiches, uniquement pour cette langue.</div>
 <div id="grammarList"></div>
-<div class="version">Lingua Coach V1.5 · Grammaire par langue</div>
+<div class="version">Lingua Coach V1.6 · Grammaire par langue</div>
 </section>
 
 <section id="games" class="hidden">
@@ -154,6 +230,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 </div>
 
 <div class="tabs">
+  <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
   <button class="tab" data-langnav="detail">🎙️ Séance</button>
   <button class="tab" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab active" data-langnav="games">🎮 Jeux</button>
@@ -176,7 +253,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <button class="ghost hidden" id="nextGameBtn">Phrase suivante</button>
   <div class="statsLine" id="gameStats"></div>
 </div>
-<div class="version">Lingua Coach V1.5 · Jeux par langue</div>
+<div class="version">Lingua Coach V1.6 · Jeux par langue</div>
 </section>
 
 <section id="detail" class="hidden">
@@ -191,6 +268,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 </div>
 
 <div class="tabs">
+  <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
   <button class="tab active" data-langnav="detail">🎙️ Séance</button>
   <button class="tab" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab" data-langnav="games">🎮 Jeux</button>
@@ -212,7 +290,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="summary" id="summary"></div>
 <button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
-<div class="version">Lingua Coach V1.5</div>
+<div class="version">Lingua Coach V1.6</div>
 </section>
 
 <section id="ready" class="hidden">
@@ -222,6 +300,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 </div>
 
 <div class="tabs">
+  <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
   <button class="tab active" data-langnav="detail">🎙️ Séance</button>
   <button class="tab" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab" data-langnav="games">🎮 Jeux</button>
@@ -250,7 +329,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="status" id="reportStatus"></div>
 </div>
 
-<div class="version">Lingua Coach V1.5</div>
+<div class="version">Lingua Coach V1.6</div>
 </section>
 
 </main>
@@ -274,12 +353,181 @@ const KREOL_THEMES=[
  ["🌤️","Météo"],["🎲","Surprise"]
 ];
 
-const DEFAULT_STATE={code:"es",theme:"Vie quotidienne",duration:5,questions:3,grammarFilter:"all",gameFilter:"all"};
+const KREOL_COURSES=[
+ {
+  n:1,title:"Bonzour !",meta:"Saluer et répondre",goal:"Savoir saluer quelqu’un et répondre simplement, sans chercher une phrase compliquée.",
+  phrases:[
+   ["Bonzour.","Bonjour."],
+   ["Ki manier?","Comment ça va ?"],
+   ["Mo bien, mersi.","Je vais bien, merci."],
+   ["Mersi.","Merci."],
+   ["Orevwar.","Au revoir."]
+  ],
+  bridge:"Pont français : bonzour et mersi sont très reconnaissables. Mais on apprend tout de suite leur orthographe kreol, plus proche des sons.",
+  rule:"Mini-règle : mo = « je / moi ». Au début, retiens-le comme un bloc très fréquent.",
+  dialogue:[
+   ["A","Bonzour! Ki manier?"],
+   ["B","Mo bien, mersi. Ou?"],
+   ["A","Mo bien. Mersi."]
+  ],
+  mission:"Dis à voix haute trois fois : « Bonzour. Mo bien, mersi. » Puis imagine que tu salues un voisin à Tamarin.",
+  writeQ:"Écris en Kreol : « Merci »",
+  answers:["mersi"]
+ },
+ {
+  n:2,title:"Mo apel…",meta:"Se présenter",goal:"Dire ton nom et demander le nom de quelqu’un.",
+  phrases:[
+   ["Mo apel Paul.","Je m’appelle Paul."],
+   ["Kouma to apele?","Comment t’appelles-tu ?"],
+   ["Kouma ou apele?","Comment vous appelez-vous ?"],
+   ["Mo sorti Lafrans.","Je viens de France."],
+   ["Mo pe aprann Kreol Morisien.","J’apprends le Kreol Morisien."]
+  ],
+  bridge:"Pont français / anglais : apel rappelle « appeler ». Mo joue souvent le rôle de « je / I », to celui de « tu / you » et ou celui du « vous » poli.",
+  rule:"Mini-règle : to est familier ; ou permet de s’adresser poliment à quelqu’un.",
+  dialogue:[
+   ["A","Bonzour. Kouma ou apele?"],
+   ["B","Mo apel Paul. Ek ou?"],
+   ["A","Mo apel Maya."]
+  ],
+  mission:"Présente-toi oralement en deux phrases : ton nom, puis le fait que tu apprends le Kreol Morisien.",
+  writeQ:"Écris en Kreol : « Je m’appelle Paul »",
+  answers:["mo apel paul","mo apel paul."]
+ },
+ {
+  n:3,title:"Mo pa konpran",meta:"Phrase de survie",goal:"Savoir dire que tu ne comprends pas et demander de répéter plus lentement.",
+  phrases:[
+   ["Mo pa konpran.","Je ne comprends pas."],
+   ["Kapav repet sa, silvouple?","Pouvez-vous répéter, s’il vous plaît ?"],
+   ["Koz pli dousman, silvouple.","Parlez plus lentement, s’il vous plaît."],
+   ["Ki savedir sa?","Qu’est-ce que cela veut dire ?"],
+   ["Mersi, aster mo konpran.","Merci, maintenant je comprends."]
+  ],
+  bridge:"Pont français : silvouple vient clairement de « s’il vous plaît ». Le français aide à reconnaître, mais l’ordre de la phrase Kreol reste à apprendre tel quel.",
+  rule:"Mini-règle : pa sert très souvent à la négation. « Mo konpran » → je comprends ; « Mo pa konpran » → je ne comprends pas.",
+  dialogue:[
+   ["A","Nou zwenn dime gramatin."],
+   ["B","Sori, mo pa konpran. Kapav repet sa, silvouple?"],
+   ["A","Wi. Nou zwenn dime gramatin."]
+  ],
+  mission:"Fais comme si quelqu’un parlait trop vite : dis « Mo pa konpran. Koz pli dousman, silvouple. »",
+  writeQ:"Écris en Kreol : « Je ne comprends pas »",
+  answers:["mo pa konpran","mo pa konpran."]
+ },
+ {
+  n:4,title:"Mo anvi…",meta:"Demander simplement",goal:"Commander ou demander quelque chose avec une structure très utile.",
+  phrases:[
+   ["Mo anvi enn kafe, silvouple.","Je voudrais / je veux un café, s’il vous plaît."],
+   ["Mo anvi enn delo.","Je voudrais de l’eau."],
+   ["Mo anvi manze.","Je veux manger."],
+   ["Mersi boukou.","Merci beaucoup."],
+   ["Sa bon.","C’est bon."]
+  ],
+  bridge:"Pont français : anvi rappelle « envie ». En Kreol, « mo anvi… » est une structure très pratique pour exprimer ce que tu veux.",
+  rule:"Mini-règle : enn signifie souvent « un / une ». Retenir d’abord des blocs : enn kafe, enn delo.",
+  dialogue:[
+   ["A","Ki ou anvi?"],
+   ["B","Mo anvi enn kafe, silvouple."],
+   ["A","Wi, pena problem."]
+  ],
+  mission:"Imagine un café à La Preneuse. Commande une boisson en une phrase, puis remercie.",
+  writeQ:"Écris en Kreol : « Je voudrais un café »",
+  answers:["mo anvi enn kafe","mo anvi enn kafe."]
+ },
+ {
+  n:5,title:"Konbien sa?",meta:"Prix et achats",goal:"Demander un prix et dire simplement que tu prends quelque chose.",
+  phrases:[
+   ["Konbien sa?","Combien ça coûte ?"],
+   ["Sa tro ser.","C’est trop cher."],
+   ["Mo pou pran sa.","Je vais prendre ça."],
+   ["Ena enn lot?","Il y en a un autre ?"],
+   ["Mersi.","Merci."]
+  ],
+  bridge:"Pont français : konbien ≈ combien, ser ≈ cher. Tu peux profiter de ces ressemblances, sans recopier l’orthographe française.",
+  rule:"Mini-règle : sa sert très souvent à désigner « ça / cela ».",
+  dialogue:[
+   ["A","Konbien sa?"],
+   ["B","San roupi."],
+   ["A","Korek. Mo pou pran sa."]
+  ],
+  mission:"Imagine un marché. Demande le prix, puis dis que tu prends l’objet.",
+  writeQ:"Écris en Kreol : « Combien ça coûte ? »",
+  answers:["konbien sa","konbien sa?"]
+ },
+ {
+  n:6,title:"Kot… ete?",meta:"Trouver son chemin",goal:"Demander où se trouve un lieu et comprendre les mots les plus simples.",
+  phrases:[
+   ["Kot twalet ete?","Où sont les toilettes ?"],
+   ["Kot laplaz ete?","Où est la plage ?"],
+   ["Li pre.","C’est près."],
+   ["Li lwin.","C’est loin."],
+   ["Mersi pou ou led.","Merci pour votre aide."]
+  ],
+  bridge:"Pont français : pre et lwin rappellent « près » et « loin ». Kot fonctionne comme un mot-question très utile pour « où ».",
+  rule:"Mini-règle : « Kot X ete? » est un patron à mémoriser pour demander où se trouve quelque chose.",
+  dialogue:[
+   ["A","Eskiz mwa. Kot laplaz ete?"],
+   ["B","Li pre."],
+   ["A","Mersi pou ou led."]
+  ],
+  mission:"Choisis un lieu utile à Maurice et pose la question « Kot … ete? » à voix haute.",
+  writeQ:"Écris en Kreol : « Où est la plage ? »",
+  answers:["kot laplaz ete","kot laplaz ete?"]
+ },
+ {
+  n:7,title:"Mo reste Tamarin",meta:"Parler de soi",goal:"Dire où tu habites et poser une question simple à ton interlocuteur.",
+  phrases:[
+   ["Mo reste Tamarin.","J’habite à Tamarin."],
+   ["Kot to reste?","Où habites-tu ?"],
+   ["Mo kontan Moris.","J’aime Maurice."],
+   ["Mo kontan lamer.","J’aime la mer."],
+   ["Mo vini souvan.","Je viens souvent."]
+  ],
+  bridge:"Pont français : reste est facile à reconnaître, mais ici il sert naturellement à parler du lieu où l’on habite.",
+  rule:"Mini-règle : « mo + verbe » suffit souvent pour une phrase simple au présent. Pas besoin de conjugaison à la française.",
+  dialogue:[
+   ["A","Kot to reste?"],
+   ["B","Mo reste Tamarin."],
+   ["A","To kontan Moris?"],
+   ["B","Wi, mo kontan Moris."]
+  ],
+  mission:"Dis où tu habites puis ajoute une chose que tu aimes à Maurice.",
+  writeQ:"Écris en Kreol : « J’habite à Tamarin »",
+  answers:["mo reste tamarin","mo reste tamarin."]
+ },
+ {
+  n:8,title:"Premie ti konversasion",meta:"Assembler les briques",goal:"Réutiliser les phrases des sept premiers cours dans une mini-conversation réelle.",
+  phrases:[
+   ["Bonzour. Ki manier?","Bonjour. Comment ça va ?"],
+   ["Mo apel Paul.","Je m’appelle Paul."],
+   ["Mo pe aprann Kreol Morisien.","J’apprends le Kreol Morisien."],
+   ["Mo pa konpran. Kapav repet sa?","Je ne comprends pas. Pouvez-vous répéter ?"],
+   ["Mersi boukou.","Merci beaucoup."]
+  ],
+  bridge:"Ton français t’aide à reconnaître beaucoup de mots. Ton anglais t’aide à accepter une grammaire moins conjuguée. Mais la meilleure stratégie reste d’apprendre des blocs Kreol complets.",
+  rule:"Mini-règle : priorité à la communication. Une phrase courte, correcte et comprise vaut mieux qu’une phrase française traduite mot à mot.",
+  dialogue:[
+   ["A","Bonzour. Ki manier?"],
+   ["B","Mo bien, mersi. Mo apel Paul."],
+   ["A","Kouma?"],
+   ["B","Mo apel Paul. Mo pe aprann Kreol Morisien."],
+   ["A","Bien!"],
+   ["B","Mersi boukou."]
+  ],
+  mission:"Fais toute la mini-conversation à voix haute. Ensuite, passe dans 🎙️ Séance pour une première lecture très courte.",
+  writeQ:"Écris en Kreol : « J’apprends le Kreol Morisien »",
+  answers:["mo pe aprann kreol morisien","mo pe aprann kreol morisien."]
+ }
+];
+
+
+const DEFAULT_STATE={code:"es",theme:"Vie quotidienne",duration:5,questions:3,grammarFilter:"all",gameFilter:"all",courseLesson:1,courseDone:[]};
 let state;
 try{state={...DEFAULT_STATE,...JSON.parse(localStorage.getItem("lingua-coach-v1")||"{}")}}catch(e){state={...DEFAULT_STATE}}
 
 const sections={
   home:document.getElementById("home"),
+  course:document.getElementById("course"),
   grammar:document.getElementById("grammar"),
   games:document.getElementById("games"),
   detail:document.getElementById("detail"),
@@ -290,11 +538,26 @@ let currentGameId=null;
 
 function saveState(){localStorage.setItem("lingua-coach-v1",JSON.stringify(state))}
 function show(name){
+  if(name==="course" && state.code!=="mfe") name="detail";
   Object.values(sections).forEach(x=>x.classList.add("hidden"));
   sections[name].classList.remove("hidden");
+  updateLanguageTabs(name);
+  if(name==="course") renderCourse();
   if(name==="grammar") renderGrammar();
   if(name==="games") renderGames();
   window.scrollTo({top:0,behavior:"instant"});
+}
+
+function updateLanguageTabs(activeName){
+  const isKreol=state.code==="mfe";
+  document.querySelectorAll(".courseTab").forEach(b=>b.classList.toggle("hidden",!isKreol));
+  document.querySelectorAll(".tabs").forEach(t=>{
+    if(t.closest("#home")) return;
+    t.classList.toggle("four",isKreol);
+  });
+  document.querySelectorAll("[data-langnav]").forEach(b=>{
+    b.classList.toggle("active",b.dataset.langnav===activeName);
+  });
 }
 
 document.querySelectorAll("[data-langnav]").forEach(b=>b.onclick=()=>{
@@ -306,12 +569,12 @@ document.querySelectorAll("[data-back-language]").forEach(b=>b.onclick=()=>show(
 function openLanguage(code){
   state.code=code;
   state.theme=code==="mfe"?"Se présenter":"Vie quotidienne";
-  state.duration=5;
+  state.duration=code==="mfe"?1:5;
   state.questions=3;
   currentGameId=null;
   saveState();
   renderDetail();
-  show("detail");
+  show(code==="mfe"?"course":"detail");
 }
 
 function renderDetail(){
@@ -323,6 +586,8 @@ function renderDetail(){
 
   document.getElementById("grammarTitle").textContent=l.flag+" "+l.name+" · Grammaire";
   document.getElementById("gamesTitle").textContent=l.flag+" "+l.name+" · Jeux";
+  document.getElementById("courseTitle").textContent="🇲🇺 Kreol Morisien · Cours";
+  updateLanguageTabs("detail");
 
   const list=state.code==="mfe"?KREOL_THEMES:COMMON_THEMES;
   const themes=document.getElementById("themes");
@@ -355,6 +620,7 @@ function renderDetail(){
 
 document.querySelectorAll(".lang").forEach(b=>b.onclick=()=>openLanguage(b.dataset.code));
 document.getElementById("backBtn").onclick=()=>show("home");
+document.getElementById("courseBackBtn").onclick=()=>show("home");
 document.getElementById("readyBackBtn").onclick=()=>show("detail");
 
 document.getElementById("duration").oninput=e=>{
@@ -362,6 +628,101 @@ document.getElementById("duration").oninput=e=>{
   saveState();
   renderDetail();
 };
+
+
+function normalizeCourseAnswer(s){
+  return String(s||"").normalize("NFC").trim().toLowerCase().replace(/[.!?]+$/,"").replace(/\s+/g," ");
+}
+
+function renderCourse(){
+  if(state.code!=="mfe"){show("detail");return}
+  if(!Array.isArray(state.courseDone)) state.courseDone=[];
+  if(!state.courseLesson || state.courseLesson<1 || state.courseLesson>KREOL_COURSES.length) state.courseLesson=1;
+
+  const done=new Set(state.courseDone.map(Number));
+  const count=done.size;
+  document.getElementById("courseProgressText").textContent=`${count} / ${KREOL_COURSES.length}`;
+  document.getElementById("courseProgressBar").style.width=`${Math.round(count/KREOL_COURSES.length*100)}%`;
+
+  const list=document.getElementById("courseList");
+  list.innerHTML="";
+  KREOL_COURSES.forEach(c=>{
+    const b=document.createElement("button");
+    b.className="courseBtn"+(state.courseLesson===c.n?" active":"");
+    b.innerHTML=`
+      <div class="courseNum">${c.n}</div>
+      <div><div class="courseName">${escapeHtml(c.title)}</div><div class="courseMeta">${escapeHtml(c.meta)}</div></div>
+      <div class="courseDone">${done.has(c.n)?"✅":"›"}</div>`;
+    b.onclick=()=>{state.courseLesson=c.n;saveState();renderCourse();window.scrollTo({top:0,behavior:"smooth"});};
+    list.appendChild(b);
+  });
+
+  const c=KREOL_COURSES[state.courseLesson-1];
+  document.getElementById("lessonTitle").textContent=`Cours ${c.n} · ${c.title}`;
+  document.getElementById("lessonGoal").textContent=c.goal;
+
+  const phrases=c.phrases.map(([kr,fr])=>`
+    <div class="phraseRow"><div class="kreolPhrase">${escapeHtml(kr)}</div><div class="frPhrase">${escapeHtml(fr)}</div></div>
+  `).join("");
+
+  const dialog=c.dialogue.map(([who,line])=>`<div><b>${escapeHtml(who)} :</b> ${escapeHtml(line)}</div>`).join("");
+
+  document.getElementById("lessonContent").innerHTML=`
+    <div class="lessonBlock">
+      <div class="lessonBlockTitle">1 · Lis et répète à voix haute</div>
+      ${phrases}
+    </div>
+    <div class="lessonBlock bridge">
+      <div class="lessonBlockTitle">2 · Ton raccourci français / anglais</div>
+      <div>${escapeHtml(c.bridge)}</div>
+    </div>
+    <div class="lessonBlock ruleBox">
+      <div class="lessonBlockTitle">3 · Une seule mini-règle</div>
+      <div>${escapeHtml(c.rule)}</div>
+    </div>
+    <div class="lessonBlock">
+      <div class="lessonBlockTitle">4 · Micro-dialogue</div>
+      <div class="dialogue">${dialog}</div>
+    </div>
+    <div class="lessonBlock mission">
+      <div class="lessonBlockTitle">5 · Mission orale Maurice 🌴</div>
+      <div>${escapeHtml(c.mission)}</div>
+    </div>
+    <div class="lessonBlock writeExercise">
+      <div class="lessonBlockTitle">6 · Petit geste d’écriture</div>
+      <div>${escapeHtml(c.writeQ)}</div>
+      <input class="courseInput" id="courseAnswer" autocomplete="off" autocapitalize="sentences" placeholder="Écris ta réponse…">
+      <button class="secondary" id="checkCourseAnswerBtn" style="margin-top:9px">Vérifier</button>
+      <div class="courseFeedback" id="courseFeedback"></div>
+    </div>
+  `;
+
+  document.getElementById("checkCourseAnswerBtn").onclick=()=>{
+    const ans=normalizeCourseAnswer(document.getElementById("courseAnswer").value);
+    const ok=c.answers.map(normalizeCourseAnswer).includes(ans);
+    document.getElementById("courseFeedback").textContent=ok
+      ? "🟢 Correct. Garde la phrase en bouche."
+      : `🟠 Presque. La forme attendue est : ${c.answers[0]}`;
+  };
+
+  document.getElementById("prevCourseBtn").disabled=c.n===1;
+  document.getElementById("prevCourseBtn").style.opacity=c.n===1?".45":"1";
+  document.getElementById("prevCourseBtn").onclick=()=>{
+    if(c.n>1){state.courseLesson=c.n-1;saveState();renderCourse();window.scrollTo({top:0,behavior:"smooth"});}
+  };
+
+  const completeBtn=document.getElementById("completeCourseBtn");
+  completeBtn.textContent=done.has(c.n)?"✅ Cours terminé":"✅ Marquer terminé";
+  completeBtn.onclick=()=>{
+    const set=new Set((state.courseDone||[]).map(Number));
+    set.add(c.n);
+    state.courseDone=[...set].sort((a,b)=>a-b);
+    if(c.n<KREOL_COURSES.length) state.courseLesson=c.n+1;
+    saveState();
+    renderCourse();
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+}
 
 function endBlock(languageName){
 return `Quand j'écris uniquement « fin », termine immédiatement avec un bilan bref en français, puis affiche exactement ce bloc facilement copiable :
