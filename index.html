@@ -127,7 +127,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="savedBody" id="lastReportBody"></div>
 </div>
 
-<div class="version">Lingua Coach V1.4 · Espaces par langue</div>
+<div class="version">Lingua Coach V1.5 · Navigation par langue</div>
 </section>
 
 <section id="grammar" class="hidden">
@@ -144,7 +144,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="sectionSub">Tes erreurs réelles deviennent de petites fiches, uniquement pour cette langue.</div>
 <div id="grammarList"></div>
-<div class="version">Lingua Coach V1.4 · Grammaire par langue</div>
+<div class="version">Lingua Coach V1.5 · Grammaire par langue</div>
 </section>
 
 <section id="games" class="hidden">
@@ -176,7 +176,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <button class="ghost hidden" id="nextGameBtn">Phrase suivante</button>
   <div class="statsLine" id="gameStats"></div>
 </div>
-<div class="version">Lingua Coach V1.4 · Jeux par langue</div>
+<div class="version">Lingua Coach V1.5 · Jeux par langue</div>
 </section>
 
 <section id="detail" class="hidden">
@@ -212,13 +212,19 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="summary" id="summary"></div>
 <button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
-<div class="version">Lingua Coach V1.4</div>
+<div class="version">Lingua Coach V1.5</div>
 </section>
 
 <section id="ready" class="hidden">
 <div class="head">
   <button class="back" id="readyBackBtn">‹</button>
   <div><div class="kicker">Séance prête</div><div class="detail-title">Direction ChatGPT</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-langnav="detail">🎙️ Séance</button>
+  <button class="tab" data-langnav="grammar">📘 Grammaire</button>
+  <button class="tab" data-langnav="games">🎮 Jeux</button>
 </div>
 
 <div class="card">
@@ -244,7 +250,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="status" id="reportStatus"></div>
 </div>
 
-<div class="version">Lingua Coach V1.4</div>
+<div class="version">Lingua Coach V1.5</div>
 </section>
 
 </main>
