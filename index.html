@@ -3,161 +3,723 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#f6f7fb">
 <title>Lingua Coach</title>
 <style>
-:root{--bg:#f7f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--purple:#7c3aed;--purple2:#9f67ff;--blue:#0a8cf5;--line:#e8e8ef;--soft:#f5efff;--orange:#f97316;--shadow:0 10px 30px rgba(20,20,50,.09)}
+:root{
+  --bg:#f6f7fb;--card:#fff;--text:#172033;--muted:#6f7788;
+  --accent:#6750d8;--accent2:#8b7cf0;--line:#e4e7ef;--soft:#f0edff;
+  --ok:#197a58;--bad:#b54848;--shadow:0 10px 28px rgba(31,38,64,.09)
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);color:var(--text)}
+html,body{margin:0;min-height:100%;background:linear-gradient(180deg,#fff,var(--bg));color:var(--text)}
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
-button{font:inherit}
-.app{max-width:480px;margin:0 auto;min-height:100vh;padding:calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 34px)}
-header{text-align:center;margin:8px 0 18px}
-h1{margin:0;font-size:38px;letter-spacing:-1.2px}
-.subtitle{margin:4px 0 12px;color:var(--muted);font-size:17px}
-.voice-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;color:var(--purple);background:#f2eafe;font-weight:750;font-size:15px}
-.section-title{font-size:20px;font-weight:850;margin:26px 4px 14px}
-.lang-grid{display:grid;gap:12px}
-.lang-card{width:100%;border:1px solid rgba(20,20,50,.05);background:var(--card);border-radius:24px;padding:16px;display:grid;grid-template-columns:58px 1fr 34px;align-items:center;text-align:left;box-shadow:var(--shadow);cursor:pointer}
-.flag{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:37px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
-.lang-name{font-size:23px;font-weight:850;line-height:1.06;color:var(--blue)}
-.level{margin-top:5px;color:var(--muted);font-size:15px}.level b{color:var(--orange)}
-.stats{display:flex;gap:12px;margin-top:10px;font-size:12px;color:var(--muted);flex-wrap:wrap}
-.arrow{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--purple);background:#f4efff}
-.global-card{margin-top:18px;background:#fff;border-radius:24px;padding:16px;box-shadow:var(--shadow)}
-.global-title{font-weight:800;font-size:18px;margin-bottom:12px}
-.global-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
-.gnum{font-size:22px;font-weight:850}.glabel{font-size:11px;color:var(--muted)}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:500px;margin:0 auto;min-height:100vh;padding:calc(env(safe-area-inset-top) + 20px) 18px calc(env(safe-area-inset-bottom) + 32px)}
 .hidden{display:none!important}
-.detail-head{display:grid;grid-template-columns:44px 1fr;align-items:center;gap:10px;margin:8px 0 16px}
-.back{width:42px;height:42px;border-radius:50%;border:0;background:#fff;box-shadow:var(--shadow);color:var(--blue);font-size:28px;font-weight:700}
-.kicker{font-size:13px;color:var(--muted)}
-.detail-title{font-size:28px;font-weight:880;line-height:1.1}
-.hero{background:#fff;border-radius:26px;padding:18px;box-shadow:var(--shadow);display:grid;grid-template-columns:62px 1fr;gap:14px;align-items:center}
-.hero .flag{width:58px;height:58px;font-size:40px}
-.hero-name{font-size:27px;font-weight:870}
-.hero-level{color:var(--muted);font-size:16px;margin-top:3px}.hero-level b{color:var(--orange)}
-.panel{margin-top:14px;background:#fff;border-radius:26px;padding:18px;box-shadow:var(--shadow)}
-.panel-title{font-size:19px;font-weight:850;margin-bottom:16px}
-.row{margin-bottom:18px}.row:last-child{margin-bottom:0}
-.label{font-size:14px;font-weight:800;margin:0 0 9px 2px}
-.choices{display:flex;gap:8px;flex-wrap:wrap}
-.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 13px;color:#374151;font-weight:700;min-width:48px;cursor:pointer}
-.choice.active{border-color:var(--purple);background:var(--soft);color:var(--purple);box-shadow:0 0 0 1px rgba(124,58,237,.08)}
-.themes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.theme{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 8px;color:#374151;font-weight:700;text-align:center;cursor:pointer;font-size:14px}
-.theme.active{border-color:var(--purple);background:var(--soft);color:var(--purple)}
-.summary{margin-top:14px;background:#faf7ff;border:1px solid #e3d7ff;border-radius:20px;padding:15px}
-.summary-title{font-weight:850;color:#5b21b6;margin-bottom:8px}
-.summary-text{color:#5b21b6;font-size:14px;line-height:1.45}
-.primary,.secondary{width:100%;border:0;border-radius:22px;padding:17px 18px;font-size:18px;font-weight:850;cursor:pointer}
-.primary{margin-top:16px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 12px 26px rgba(124,58,237,.28)}
-.secondary{margin-top:12px;background:#fff;color:var(--purple);border:1px solid #d9c8ff;box-shadow:var(--shadow)}
-.ready-card{background:#fff;border-radius:26px;padding:20px;box-shadow:var(--shadow)}
-.ready-card h2{font-size:28px;margin:0 0 6px}
-.ready-card p{color:var(--muted);line-height:1.45;margin:0}
-.project-box{margin-top:16px;padding:14px;border-radius:18px;background:#f8f5ff;border:1px solid #e5dbff}
-.project-label{font-size:12px;color:#6b7280;font-weight:750;margin-bottom:4px}
-.project-name{font-size:17px;font-weight:850;color:#5b21b6}
-.prompt-box{margin-top:14px;padding:16px;border-radius:18px;background:#f8fafc;border:1px solid #e5e7eb;font-size:14px;line-height:1.55;white-space:pre-wrap}
-.status{margin-top:12px;text-align:center;font-size:14px;font-weight:800;color:#16a34a;min-height:20px}
-.small-note{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
-@media(max-width:390px){h1{font-size:34px}.lang-name{font-size:21px}.stats{gap:8px}}
+header{text-align:center;padding:8px 0 12px}
+h1{font-size:36px;letter-spacing:-1px;margin:0}
+.subtitle{font-size:16px;color:var(--muted);margin-top:5px}
+.pill{display:inline-flex;margin-top:12px;padding:9px 14px;background:var(--soft);color:var(--accent);border-radius:999px;font-weight:800;font-size:14px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 18px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 6px;font-weight:850;color:var(--muted)}
+.tab.active{background:var(--soft);border-color:#c9c1f7;color:var(--accent)}
+.title{font-size:19px;font-weight:850;margin:18px 4px 12px}
+.languages{display:grid;gap:12px}
+.lang{
+  width:100%;border:1px solid var(--line);background:var(--card);border-radius:22px;
+  padding:17px;display:grid;grid-template-columns:56px 1fr 32px;gap:12px;align-items:center;
+  text-align:left;box-shadow:var(--shadow)
+}
+.flag{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;background:#fff;border:1px solid #eceef4}
+.name{font-size:22px;font-weight:870}
+.level{font-size:14px;color:var(--muted);margin-top:4px}.level b{color:var(--accent)}
+.arrow{font-size:27px;color:var(--accent);text-align:center}
+.note{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;color:var(--muted);font-size:13px;line-height:1.5;box-shadow:var(--shadow)}
+.head{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;margin:6px 0 14px}
+.back{width:42px;height:42px;border:0;border-radius:50%;background:#fff;box-shadow:var(--shadow);font-size:27px;color:var(--accent)}
+.kicker{font-size:12px;color:var(--muted);font-weight:700}
+.detail-title{font-size:27px;font-weight:880}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:13px;box-shadow:var(--shadow)}
+.hero{display:grid;grid-template-columns:60px 1fr;gap:14px;align-items:center}
+.hero .flag{width:58px;height:58px;font-size:39px}
+.hero-name{font-size:25px;font-weight:870}
+.hero-level{font-size:15px;color:var(--muted);margin-top:3px}
+.label{font-size:13px;font-weight:850;color:var(--muted);margin:16px 0 8px}
+.label:first-child{margin-top:0}
+.themes{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 8px;font-weight:750;color:#3b4354}
+.choice.active{background:var(--soft);border-color:#b8acf6;color:var(--accent)}
+.rangeRow{display:flex;align-items:center;gap:12px}
+.rangeRow input{width:100%}
+.value{min-width:75px;text-align:center;padding:9px;background:#f5f3ff;border-radius:12px;color:var(--accent);font-weight:900}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.summary{background:#f8f6ff;border:1px solid #ded8fb;border-radius:18px;padding:14px;margin-top:13px;color:#5142af;font-size:14px;line-height:1.45}
+.primary,.secondary,.ghost{width:100%;border-radius:17px;padding:15px 16px;font-size:17px;font-weight:880}
+.primary{border:0;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;margin-top:15px;box-shadow:0 9px 20px rgba(103,80,216,.22)}
+.secondary{background:#fff;color:var(--accent);border:1px solid #cdc6f6;margin-top:10px}
+.ghost{background:#f7f8fb;color:#4b5364;border:1px solid var(--line);margin-top:10px}
+.project{font-weight:850;color:var(--accent);font-size:17px;margin-top:5px}
+.prompt{white-space:pre-wrap;background:#f7f8fb;border:1px solid var(--line);padding:13px;border-radius:15px;margin-top:12px;font-size:13px;line-height:1.5;max-height:240px;overflow:auto}
+.status{text-align:center;min-height:20px;margin-top:10px;font-size:13px;font-weight:800;color:var(--ok)}
+textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:15px;padding:13px;font-size:14px;line-height:1.45;resize:vertical;background:#fbfbfd;color:var(--text)}
+.saved{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:var(--shadow)}
+.savedTitle{font-size:13px;color:var(--muted);font-weight:850;margin-bottom:8px}
+.savedBody{white-space:pre-wrap;font-size:13px;line-height:1.5;color:#3f4656}
+.version{text-align:center;color:#9aa0ad;font-size:11px;margin-top:18px}
+.sectionTitle{font-size:29px;font-weight:900;letter-spacing:-.6px;margin:6px 0 2px}
+.sectionSub{color:var(--muted);font-size:14px;line-height:1.45;margin-bottom:10px}
+.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}
+.filter{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 4px;font-size:12px;font-weight:850;color:var(--muted)}
+.filter.active{background:var(--soft);color:var(--accent);border-color:#c9c1f7}
+.grammarCard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:11px;box-shadow:var(--shadow)}
+.gcTop{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}
+.gcLang{font-weight:900}.gcCount{font-size:12px;color:var(--muted)}
+.block{border-radius:14px;padding:11px 12px;margin-top:8px;font-size:14px;line-height:1.45}
+.bad{background:#fff4f4;color:#8f3434}.good{background:#effaf5;color:#176649}.rule{background:#f6f3ff;color:#5142af}.example{background:#f7f8fb;color:#444b5a}
+.block b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;opacity:.72}
+.empty{text-align:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 18px;color:var(--muted);line-height:1.5;box-shadow:var(--shadow);margin-top:14px}
+.gamePrompt{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.gameSentence{font-size:21px;font-weight:850;line-height:1.35;margin:12px 0 16px}
+.answerInput{width:100%;border:1px solid var(--line);border-radius:15px;padding:14px;font-size:16px;background:#fbfbfd;color:var(--text)}
+.feedback{margin-top:12px;border-radius:14px;padding:12px;font-size:14px;line-height:1.45}
+.feedback.ok{background:#effaf5;color:#176649}.feedback.no{background:#fff4f4;color:#8f3434}
+.miniRule{margin-top:7px;font-size:13px}
+.statsLine{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
 </style>
 </head>
 <body>
 <main class="app">
+
 <section id="home">
 <header>
 <h1>Lingua Coach 🌍</h1>
-<div class="subtitle">Ton coach de langues personnel</div>
-<div class="voice-pill">🎙️ Pratique orale avec ChatGPT</div>
+<div class="subtitle">Lire • comprendre • parler</div>
+<div class="pill">🎙️ Trois langues, trois espaces séparés</div>
 </header>
-<div class="section-title">Quelle langue aujourd’hui ?</div>
-<div class="lang-grid">
-<button class="lang-card" data-code="es" data-lang="Español" data-flag="🇪🇸" data-default="B2"><div class="flag">🇪🇸</div><div><div class="lang-name">Español</div><div class="level">Niveau actuel : <b>B2</b></div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
-<button class="lang-card" data-code="en" data-lang="English" data-flag="🇬🇧" data-default="B2"><div class="flag">🇬🇧</div><div><div class="lang-name">English</div><div class="level">Niveau actuel : <b>B2</b></div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
-<button class="lang-card" data-code="id" data-lang="Bahasa Indonesia" data-flag="🇮🇩" data-default="A1"><div class="flag">🇮🇩</div><div><div class="lang-name">Bahasa Indonesia</div><div class="level">Niveau actuel : <b>A1</b></div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
-<button class="lang-card" data-code="mfe" data-lang="Kreol Morisien" data-flag="🇲🇺" data-default="A1"><div class="flag">🇲🇺</div><div><div class="lang-name">Kreol Morisien</div><div class="level">Niveau actuel : <b>A1</b> · grand débutant</div><div class="stats"><span>🟢 0 maîtrisé</span><span>🟠 0 en progrès</span><span>🔴 0 fragile</span></div></div><div class="arrow">›</div></button>
+
+<div class="title">Quelle langue aujourd’hui ?</div>
+<div class="languages">
+  <button class="lang" data-code="es">
+    <div class="flag">🇪🇸</div>
+    <div><div class="name">Español</div><div class="level">Niveau actuel : <b>B2</b></div></div>
+    <div class="arrow">›</div>
+  </button>
+  <button class="lang" data-code="en">
+    <div class="flag">🇬🇧</div>
+    <div><div class="name">English</div><div class="level">Niveau actuel : <b>B2</b></div></div>
+    <div class="arrow">›</div>
+  </button>
+  <button class="lang" data-code="mfe">
+    <div class="flag">🇲🇺</div>
+    <div><div class="name">Kreol Morisien</div><div class="level">Niveau actuel : <b>A1 · grand débutant</b></div></div>
+    <div class="arrow">›</div>
+  </button>
 </div>
-<div class="global-card"><div class="global-title">📈 Ton activité globale</div><div class="global-stats"><div><div class="gnum">0</div><div class="glabel">séance</div></div><div><div class="gnum">0 h</div><div class="glabel">oral</div></div><div><div class="gnum">0</div><div class="glabel">exercice</div></div><div><div class="gnum">0</div><div class="glabel">jour</div></div></div></div>
+
+<div class="note">
+  🇮🇩 L’indonésien reste volontairement dans <b>Bahasa</b>. Lingua Coach ne duplique pas ce qui fonctionne déjà ailleurs.
+</div>
+
+<div class="saved hidden" id="lastReportCard">
+  <div class="savedTitle">📘 Dernier bilan enregistré</div>
+  <div class="savedBody" id="lastReportBody"></div>
+</div>
+
+<div class="version">Lingua Coach V1.4 · Espaces par langue</div>
+</section>
+
+<section id="grammar" class="hidden">
+<div class="head">
+  <button class="back" data-back-language>‹</button>
+  <div><div class="kicker">Espace de langue</div><div class="detail-title" id="grammarTitle"></div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab" data-langnav="detail">🎙️ Séance</button>
+  <button class="tab active" data-langnav="grammar">📘 Grammaire</button>
+  <button class="tab" data-langnav="games">🎮 Jeux</button>
+</div>
+
+<div class="sectionSub">Tes erreurs réelles deviennent de petites fiches, uniquement pour cette langue.</div>
+<div id="grammarList"></div>
+<div class="version">Lingua Coach V1.4 · Grammaire par langue</div>
+</section>
+
+<section id="games" class="hidden">
+<div class="head">
+  <button class="back" data-back-language>‹</button>
+  <div><div class="kicker">Espace de langue</div><div class="detail-title" id="gamesTitle"></div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab" data-langnav="detail">🎙️ Séance</button>
+  <button class="tab" data-langnav="grammar">📘 Grammaire</button>
+  <button class="tab active" data-langnav="games">🎮 Jeux</button>
+</div>
+
+<div class="sectionSub">Les exercices viennent uniquement des erreurs réellement faites dans cette langue.</div>
+
+<div id="gameEmpty" class="empty hidden">
+  Aucun exercice pour l’instant.<br>
+  Fais une séance, termine par <b>fin</b>, puis importe le bilan.
+</div>
+
+<div id="gameCard" class="card hidden">
+  <div class="gamePrompt">🛠️ Répare la phrase</div>
+  <div class="gameSentence" id="gameSentence"></div>
+  <input class="answerInput" id="gameAnswer" autocomplete="off" autocapitalize="sentences" placeholder="Écris la forme naturelle…">
+  <button class="primary" id="checkGameBtn">Vérifier</button>
+  <button class="secondary" id="showAnswerBtn">Voir la réponse</button>
+  <div id="gameFeedback" class="hidden"></div>
+  <button class="ghost hidden" id="nextGameBtn">Phrase suivante</button>
+  <div class="statsLine" id="gameStats"></div>
+</div>
+<div class="version">Lingua Coach V1.4 · Jeux par langue</div>
 </section>
 
 <section id="detail" class="hidden">
-<div class="detail-head"><button class="back" id="backBtn">‹</button><div><div class="kicker">Langue sélectionnée</div><div class="detail-title" id="detailTitle"></div></div></div>
-<div class="hero"><div class="flag" id="heroFlag"></div><div><div class="hero-name" id="heroName"></div><div class="hero-level" id="heroLevel"></div></div></div>
-
-<div class="panel">
-<div class="panel-title">🎯 Préparer ma séance</div>
-<div class="row"><div class="label">Niveau</div><div class="choices" id="levels">
-<button class="choice" data-value="A1">A1</button><button class="choice" data-value="A2">A2</button><button class="choice" data-value="B1">B1</button><button class="choice" data-value="B2">B2</button><button class="choice" data-value="C1">C1</button>
-</div></div>
-<div class="row"><div class="label">Thème</div><div class="themes" id="themes">
-<button class="theme active" data-value="Vie quotidienne">Vie quotidienne</button>
-<button class="theme" data-value="Voyage">Voyage</button>
-<button class="theme" data-value="Actualité">Actualité</button>
-<button class="theme" data-value="Culture">Culture</button>
-<button class="theme" data-value="Gastronomie">Gastronomie</button>
-<button class="theme" data-value="Société">Société</button>
-<button class="theme" data-value="Cinéma">Cinéma</button>
-<button class="theme" data-value="Nature">Nature</button>
-<button class="theme" data-value="Histoire">Histoire</button>
-<button class="theme" data-value="Psychologie">Psychologie</button>
-<button class="theme" data-value="Sciences et technologie">Sciences & technologie</button>
-<button class="theme" data-value="Art et littérature">Art & littérature</button>
-<button class="theme" data-value="Corée">🇰🇷 Corée</button>
-<button class="theme" data-value="Île Maurice">🇲🇺 Île Maurice</button>
-<button class="theme" data-value="Surprise">🎲 Surprise</button>
-</div></div>
-<div class="row"><div class="label">Durée de lecture</div><div class="choices" id="durations">
-<button class="choice active" data-value="3">3 min</button><button class="choice" data-value="4">4</button><button class="choice" data-value="5">5</button><button class="choice" data-value="6">6</button><button class="choice" data-value="7">7</button><button class="choice" data-value="8">8</button><button class="choice" data-value="9">9</button><button class="choice" data-value="10">10</button>
-</div></div>
-<div class="row"><div class="label">Questions de compréhension</div><div class="choices" id="questions">
-<button class="choice active" data-value="3">3</button><button class="choice" data-value="4">4</button><button class="choice" data-value="5">5</button>
-</div></div>
+<div class="head">
+  <button class="back" id="backBtn">‹</button>
+  <div><div class="kicker">Préparer une séance</div><div class="detail-title" id="detailTitle"></div></div>
 </div>
 
-<div class="summary"><div class="summary-title">Ta séance</div><div class="summary-text" id="summaryText"></div></div>
+<div class="card hero">
+  <div class="flag" id="heroFlag"></div>
+  <div><div class="hero-name" id="heroName"></div><div class="hero-level" id="heroLevel"></div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-langnav="detail">🎙️ Séance</button>
+  <button class="tab" data-langnav="grammar">📘 Grammaire</button>
+  <button class="tab" data-langnav="games">🎮 Jeux</button>
+</div>
+
+<div class="card">
+  <div class="label">Thème</div>
+  <div class="themes" id="themes"></div>
+
+  <div class="label">Durée de lecture</div>
+  <div class="rangeRow">
+    <input id="duration" type="range" min="1" max="10" value="5">
+    <div class="value"><span id="durationValue">5</span> min</div>
+  </div>
+
+  <div class="label">Questions de compréhension</div>
+  <div class="seg" id="questions"></div>
+</div>
+
+<div class="summary" id="summary"></div>
 <button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
-<div class="small-note">V2 · Préparation et copie de la consigne</div>
+<div class="version">Lingua Coach V1.4</div>
 </section>
 
 <section id="ready" class="hidden">
-<div class="detail-head"><button class="back" id="readyBackBtn">‹</button><div><div class="kicker">Séance prête</div><div class="detail-title">🎙️ Direction ChatGPT</div></div></div>
-<div class="ready-card">
-<h2 id="readyTitle"></h2>
-<p>Ta consigne est prête. Copie-la puis ouvre ChatGPT.</p>
-<div class="project-box"><div class="project-label">Projet ChatGPT à ouvrir</div><div class="project-name" id="projectName"></div></div>
-<div class="prompt-box" id="promptBox"></div>
-<button class="primary" id="copyBtn">📋 Copier la consigne</button>
-<div class="status" id="copyStatus"></div>
-<button class="secondary" id="openChatGPTBtn">💬 Ouvrir ChatGPT</button>
-<div class="small-note">Dans ChatGPT, ouvre le projet indiqué ci-dessus, colle la consigne et envoie-la.</div>
+<div class="head">
+  <button class="back" id="readyBackBtn">‹</button>
+  <div><div class="kicker">Séance prête</div><div class="detail-title">Direction ChatGPT</div></div>
 </div>
+
+<div class="card">
+  <div class="label">Projet ChatGPT</div>
+  <div class="project" id="projectName"></div>
+  <div class="prompt" id="prompt"></div>
+  <button class="primary" id="copyBtn">📋 Copier la consigne</button>
+  <div class="status" id="status"></div>
+  <button class="secondary" id="openBtn">💬 Ouvrir ChatGPT</button>
+</div>
+
+<div class="note">
+  La consigne est copiée avant l’ouverture de ChatGPT. Ouvre ensuite le projet indiqué et colle simplement la consigne.
+</div>
+
+<div class="card">
+  <div class="label">↩️ Après la séance</div>
+  <div style="font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:10px">
+    Dans ChatGPT, écris <b>fin</b>. Copie le bloc <b>BILAN LINGUA COACH</b>, reviens ici et colle-le ci-dessous.
+  </div>
+  <textarea id="reportInput" placeholder="Colle ici le bloc BILAN LINGUA COACH…"></textarea>
+  <button class="primary" id="saveReportBtn">✅ Enregistrer le bilan</button>
+  <div class="status" id="reportStatus"></div>
+</div>
+
+<div class="version">Lingua Coach V1.4</div>
 </section>
+
 </main>
 
 <script>
-const state={code:null,lang:null,flag:null,level:null,theme:"Vie quotidienne",duration:"3",questions:"3"};
-const projects={es:"Lingua Coach · Español 🇪🇸",en:"Lingua Coach · English 🇬🇧",id:"Lingua Coach · Bahasa Indonesia 🇮🇩",mfe:"Lingua Coach · Kreol Morisien 🇲🇺"};
-const home=document.getElementById("home"),detail=document.getElementById("detail"),ready=document.getElementById("ready"),detailTitle=document.getElementById("detailTitle"),heroFlag=document.getElementById("heroFlag"),heroName=document.getElementById("heroName"),heroLevel=document.getElementById("heroLevel"),summaryText=document.getElementById("summaryText");
-function showOnly(section){[home,detail,ready].forEach(s=>s.classList.add("hidden"));section.classList.remove("hidden");window.scrollTo({top:0,behavior:"instant"});}
-function updateSummary(){let extra=state.code==="mfe"&&state.level==="A1"?" · grand débutant":"";summaryText.textContent=`${state.flag} ${state.lang} · ${state.level}${extra} · ${state.theme} · ${state.duration} min de lecture · ${state.questions} questions`;}
-function setActive(id,value){document.querySelectorAll(`#${id} [data-value]`).forEach(b=>b.classList.toggle("active",b.dataset.value===String(value)));}
-function updateHero(){detailTitle.textContent=`${state.flag} ${state.lang}`;heroFlag.textContent=state.flag;heroName.textContent=state.lang;heroLevel.innerHTML=`Niveau actuel : <b>${state.level}</b>${state.code==="mfe"&&state.level==="A1"?" · grand débutant":""}`;}
-function openLanguage(card){state.code=card.dataset.code;state.lang=card.dataset.lang;state.flag=card.dataset.flag;state.level=card.dataset.default;state.theme="Vie quotidienne";state.duration="3";state.questions="3";updateHero();setActive("levels",state.level);setActive("themes",state.theme);setActive("durations",state.duration);setActive("questions",state.questions);updateSummary();showOnly(detail);}
-function buildPrompt(){const levelText=state.code==="mfe"&&state.level==="A1"?"A1 grand débutant":state.level;return `SESSION LINGUA COACH\nNiveau : ${levelText}\nThème : ${state.theme}\nDurée de lecture : ${state.duration} minutes\nQuestions de compréhension : ${state.questions}\nMode : principalement oral\n\nCommence la séance maintenant.`;}
-document.querySelectorAll(".lang-card").forEach(card=>card.addEventListener("click",()=>openLanguage(card)));
-document.getElementById("backBtn").addEventListener("click",()=>showOnly(home));
-document.getElementById("readyBackBtn").addEventListener("click",()=>showOnly(detail));
-document.querySelectorAll("#levels .choice").forEach(btn=>btn.addEventListener("click",()=>{state.level=btn.dataset.value;setActive("levels",state.level);updateHero();updateSummary();}));
-document.querySelectorAll("#themes .theme").forEach(btn=>btn.addEventListener("click",()=>{state.theme=btn.dataset.value;setActive("themes",state.theme);updateSummary();}));
-document.querySelectorAll("#durations .choice").forEach(btn=>btn.addEventListener("click",()=>{state.duration=btn.dataset.value;setActive("durations",state.duration);updateSummary();}));
-document.querySelectorAll("#questions .choice").forEach(btn=>btn.addEventListener("click",()=>{state.questions=btn.dataset.value;setActive("questions",state.questions);updateSummary();}));
-document.getElementById("prepareBtn").addEventListener("click",()=>{document.getElementById("readyTitle").textContent=`${state.flag} ${state.lang}`;document.getElementById("projectName").textContent=projects[state.code];document.getElementById("promptBox").textContent=buildPrompt();document.getElementById("copyStatus").textContent="";showOnly(ready);});
-async function copyPrompt(){const text=buildPrompt(),status=document.getElementById("copyStatus");try{await navigator.clipboard.writeText(text);status.textContent="✅ Consigne copiée";}catch(e){const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand("copy");status.textContent="✅ Consigne copiée";}catch(err){status.textContent="⚠️ Maintiens le doigt sur la consigne pour la copier.";}document.body.removeChild(ta);}}
-document.getElementById("copyBtn").addEventListener("click",copyPrompt);
-document.getElementById("openChatGPTBtn").addEventListener("click",()=>{window.location.href="https://chatgpt.com/";});
+const LANGS={
+  es:{name:"Español",flag:"🇪🇸",level:"B2",project:"Lingua Coach · Español 🇪🇸",report:"Espagnol"},
+  en:{name:"English",flag:"🇬🇧",level:"B2",project:"Lingua Coach · English 🇬🇧",report:"Anglais"},
+  mfe:{name:"Kreol Morisien",flag:"🇲🇺",level:"A1 · grand débutant",project:"Lingua Coach · Kreol Morisien 🇲🇺",report:"Kreol Morisien"}
+};
+
+const COMMON_THEMES=[
+ ["☕","Vie quotidienne"],["🌍","Voyage"],["🍽️","Gastronomie"],["🌿","Nature"],
+ ["🎭","Culture"],["📰","Actualité"],["🏠","Maison"],["💬","Conversation"],
+ ["🇲🇺","Île Maurice"],["🎲","Surprise"]
+];
+
+const KREOL_THEMES=[
+ ["👋","Se présenter"],["☕","Vie quotidienne"],["🛒","Faire les courses"],["🍽️","Restaurant"],
+ ["🚌","Se déplacer"],["🏖️","Île Maurice"],["🏠","Maison"],["👥","Rencontres"],
+ ["🌤️","Météo"],["🎲","Surprise"]
+];
+
+const DEFAULT_STATE={code:"es",theme:"Vie quotidienne",duration:5,questions:3,grammarFilter:"all",gameFilter:"all"};
+let state;
+try{state={...DEFAULT_STATE,...JSON.parse(localStorage.getItem("lingua-coach-v1")||"{}")}}catch(e){state={...DEFAULT_STATE}}
+
+const sections={
+  home:document.getElementById("home"),
+  grammar:document.getElementById("grammar"),
+  games:document.getElementById("games"),
+  detail:document.getElementById("detail"),
+  ready:document.getElementById("ready")
+};
+
+let currentGameId=null;
+
+function saveState(){localStorage.setItem("lingua-coach-v1",JSON.stringify(state))}
+function show(name){
+  Object.values(sections).forEach(x=>x.classList.add("hidden"));
+  sections[name].classList.remove("hidden");
+  if(name==="grammar") renderGrammar();
+  if(name==="games") renderGames();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+document.querySelectorAll("[data-langnav]").forEach(b=>b.onclick=()=>{
+  if(b.dataset.langnav==="games") currentGameId=null;
+  show(b.dataset.langnav);
+});
+document.querySelectorAll("[data-back-language]").forEach(b=>b.onclick=()=>show("detail"));
+
+function openLanguage(code){
+  state.code=code;
+  state.theme=code==="mfe"?"Se présenter":"Vie quotidienne";
+  state.duration=5;
+  state.questions=3;
+  currentGameId=null;
+  saveState();
+  renderDetail();
+  show("detail");
+}
+
+function renderDetail(){
+  const l=LANGS[state.code];
+  document.getElementById("detailTitle").textContent=l.flag+" "+l.name;
+  document.getElementById("heroFlag").textContent=l.flag;
+  document.getElementById("heroName").textContent=l.name;
+  document.getElementById("heroLevel").textContent="Niveau actuel : "+l.level;
+
+  document.getElementById("grammarTitle").textContent=l.flag+" "+l.name+" · Grammaire";
+  document.getElementById("gamesTitle").textContent=l.flag+" "+l.name+" · Jeux";
+
+  const list=state.code==="mfe"?KREOL_THEMES:COMMON_THEMES;
+  const themes=document.getElementById("themes");
+  themes.innerHTML="";
+  list.forEach(([icon,name])=>{
+    const b=document.createElement("button");
+    b.className="choice"+(state.theme===name?" active":"");
+    b.textContent=icon+" "+name;
+    b.onclick=()=>{state.theme=name;saveState();renderDetail()};
+    themes.appendChild(b);
+  });
+
+  const dur=document.getElementById("duration");
+  dur.value=state.duration;
+  document.getElementById("durationValue").textContent=state.duration;
+
+  const qs=document.getElementById("questions");
+  qs.innerHTML="";
+  [3,4,5].forEach(n=>{
+    const b=document.createElement("button");
+    b.className="choice"+(state.questions===n?" active":"");
+    b.textContent=n;
+    b.onclick=()=>{state.questions=n;saveState();renderDetail()};
+    qs.appendChild(b);
+  });
+
+  document.getElementById("summary").textContent=
+    `${l.flag} ${l.name} · ${l.level} · ${state.theme} · ${state.duration} min · ${state.questions} questions`;
+}
+
+document.querySelectorAll(".lang").forEach(b=>b.onclick=()=>openLanguage(b.dataset.code));
+document.getElementById("backBtn").onclick=()=>show("home");
+document.getElementById("readyBackBtn").onclick=()=>show("detail");
+
+document.getElementById("duration").oninput=e=>{
+  state.duration=Number(e.target.value);
+  saveState();
+  renderDetail();
+};
+
+function endBlock(languageName){
+return `Quand j'écris uniquement « fin », termine immédiatement avec un bilan bref en français, puis affiche exactement ce bloc facilement copiable :
+
+BILAN LINGUA COACH
+Langue : ${languageName}
+Thème : ${state.theme}
+Compréhension : [très bref]
+Expression : [très bref]
+Prononciation : [très bref]
+À revoir : [mots, expressions ou points utiles ; aucun si rien]
+ERREURS UTILES
+Pour chaque erreur de grammaire, vocabulaire ou expression qui mérite réellement d'être retravaillée, ajoute un bloc au format exact :
+ERREUR
+Dit : [ce que j'ai réellement dit ou écrit]
+Correction : [forme naturelle correcte]
+Type : [grammaire / vocabulaire / expression]
+Règle : [une seule règle très courte en français]
+Exemple : [un exemple naturel court dans la langue travaillée]
+FIN ERREUR
+S'il n'y a aucune erreur utile, écris simplement :
+aucune
+FIN BILAN
+
+Ne mets pas les simples erreurs de prononciation dans les blocs ERREUR.
+N'invente jamais une erreur que je n'ai pas réellement faite.
+N'ajoute aucun commentaire à l'intérieur du bloc BILAN LINGUA COACH.`;
+}
+
+function buildPrompt(){
+  if(state.code==="es"){
+    return `SESSION LINGUA COACH
+LANGUE : Espagnol
+NIVEAU : B2
+THÈME : ${state.theme}
+LECTURE : environ ${state.duration} minutes
+QUESTIONS : ${state.questions}
+MODE : principalement oral
+
+Tu es mon coach d'espagnol B2.
+Commence par un texte naturel en espagnol adapté au thème et à la durée indiqués.
+Demande-moi ensuite de le lire à voix haute et ne m'interromps pas.
+Après ma lecture, donne seulement 2 ou 3 remarques de prononciation réellement utiles.
+Pose ensuite ${state.questions} questions de compréhension, UNE PAR UNE.
+Puis poursuis avec une conversation naturelle sur le même thème, une question à la fois.
+Corrige brièvement ce qui est réellement utile sans transformer chaque réponse en cours.
+Si l'autocorrecteur introduit ponctuellement un mot d'une autre langue, reste en espagnol si le contexte est clair.
+
+${endBlock("Espagnol")}
+
+Commence la séance maintenant.`;
+  }
+
+  if(state.code==="en"){
+    return `SESSION LINGUA COACH
+LANGUE : Anglais
+NIVEAU : B2
+THÈME : ${state.theme}
+LECTURE : environ ${state.duration} minutes
+QUESTIONS : ${state.questions}
+MODE : principalement oral
+
+Tu es mon coach d'anglais B2.
+Commence par un texte naturel en anglais adapté au thème et à la durée indiqués.
+Demande-moi ensuite de le lire à voix haute et ne m'interromps pas.
+Après ma lecture, donne seulement 2 ou 3 remarques de prononciation réellement utiles.
+Pose ensuite ${state.questions} questions de compréhension, UNE PAR UNE, en anglais.
+Puis poursuis avec une conversation naturelle sur le même thème, une question à la fois.
+Privilégie la compréhension et l'expression naturelle. Corrige brièvement les erreurs vraiment utiles.
+
+${endBlock("Anglais")}
+
+Commence la séance maintenant.`;
+  }
+
+  return `SESSION LINGUA COACH
+LANGUE : Kreol Morisien
+NIVEAU : A1 grand débutant
+THÈME : ${state.theme}
+LECTURE : environ ${state.duration} minutes maximum
+QUESTIONS : ${state.questions}
+MODE : principalement oral
+
+Tu es mon coach de Kreol Morisien pour un grand débutant.
+Utilise un kreol mauricien naturel, très simple et utile dans la vie quotidienne à Maurice.
+Commence par un petit texte facile, avec des phrases courtes et beaucoup de vocabulaire réutilisable.
+Demande-moi ensuite de le lire à voix haute et ne m'interromps pas.
+Après la lecture, donne seulement quelques corrections réellement utiles et certaines.
+Pose ensuite ${state.questions} questions de compréhension, UNE PAR UNE, en kreol simple.
+Puis poursuis avec une conversation très progressive, une seule question à la fois.
+Tu peux expliquer brièvement en français quand c'est nécessaire.
+Ne surcharge jamais une phrase de mots nouveaux.
+
+${endBlock("Kreol Morisien")}
+
+Commence la séance maintenant.`;
+}
+
+document.getElementById("prepareBtn").onclick=()=>{
+  const l=LANGS[state.code];
+  document.getElementById("projectName").textContent=l.project;
+  document.getElementById("prompt").textContent=buildPrompt();
+  document.getElementById("status").textContent="";
+  document.getElementById("reportStatus").textContent="";
+  document.getElementById("reportInput").value="";
+  show("ready");
+};
+
+async function copyText(){
+  const text=buildPrompt();
+  const status=document.getElementById("status");
+  try{
+    await navigator.clipboard.writeText(text);
+    status.textContent="✅ Consigne copiée";
+    return true;
+  }catch(e){
+    try{
+      const ta=document.createElement("textarea");
+      ta.value=text;ta.setAttribute("readonly","");
+      ta.style.position="fixed";ta.style.opacity="0";
+      document.body.appendChild(ta);ta.select();
+      const ok=document.execCommand("copy");
+      ta.remove();
+      status.textContent=ok?"✅ Consigne copiée":"⚠️ Copie manuelle nécessaire";
+      return !!ok;
+    }catch(err){
+      status.textContent="⚠️ Copie manuelle nécessaire";
+      return false;
+    }
+  }
+}
+
+document.getElementById("copyBtn").onclick=copyText;
+document.getElementById("openBtn").onclick=async()=>{
+  await copyText();
+  window.location.href="chatgpt://";
+  setTimeout(()=>{if(!document.hidden) window.location.href="https://chatgpt.com/";},900);
+};
+
+function getErrors(){
+  try{return JSON.parse(localStorage.getItem("lingua-coach-errors")||"[]")}catch(e){return[]}
+}
+function setErrors(items){localStorage.setItem("lingua-coach-errors",JSON.stringify(items))}
+function makeId(s){
+  let h=2166136261;
+  for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}
+  return "e"+(h>>>0).toString(36);
+}
+function field(line,prefix){
+  if(!line.toLowerCase().startsWith(prefix.toLowerCase())) return "";
+  return line.slice(prefix.length).trim();
+}
+function parseReport(text){
+  const lines=text.split(/\r?\n/).map(x=>x.trim());
+  let language="",theme="";
+  for(const line of lines){
+    if(line.toLowerCase().startsWith("langue :")) language=field(line,"Langue :");
+    if(line.toLowerCase().startsWith("thème :")) theme=field(line,"Thème :");
+  }
+  const parsed=[];
+  for(let i=0;i<lines.length;i++){
+    if(lines[i]!=="ERREUR") continue;
+    const item={said:"",correction:"",type:"",rule:"",example:""};
+    i++;
+    while(i<lines.length && lines[i]!=="FIN ERREUR"){
+      const line=lines[i];
+      if(line.toLowerCase().startsWith("dit :")) item.said=field(line,"Dit :");
+      else if(line.toLowerCase().startsWith("correction :")) item.correction=field(line,"Correction :");
+      else if(line.toLowerCase().startsWith("type :")) item.type=field(line,"Type :");
+      else if(line.toLowerCase().startsWith("règle :")) item.rule=field(line,"Règle :");
+      else if(line.toLowerCase().startsWith("exemple :")) item.example=field(line,"Exemple :");
+      i++;
+    }
+    if(item.said && item.correction && item.rule){
+      item.language=language||LANGS[state.code].report;
+      item.theme=theme||state.theme;
+      parsed.push(item);
+    }
+  }
+  return {language,theme,errors:parsed};
+}
+function mergeErrors(parsed){
+  const items=getErrors();
+  const now=new Date().toISOString();
+  parsed.forEach(p=>{
+    const key=(p.language+"|"+p.said+"|"+p.correction).toLowerCase().trim();
+    const id=makeId(key);
+    const found=items.find(x=>x.id===id);
+    if(found){
+      found.type=p.type||found.type;
+      found.rule=p.rule||found.rule;
+      found.example=p.example||found.example;
+      found.theme=p.theme||found.theme;
+      found.lastSeen=now;
+      found.seen=(found.seen||1)+1;
+    }else{
+      items.push({
+        id,language:p.language,theme:p.theme,said:p.said,correction:p.correction,
+        type:p.type||"grammaire",rule:p.rule,example:p.example||"",
+        firstSeen:now,lastSeen:now,seen:1,attempts:0,successes:0,lastPracticed:""
+      });
+    }
+  });
+  setErrors(items);
+}
+
+function renderLastReport(){
+  const text=localStorage.getItem("lingua-coach-last-report")||"";
+  const card=document.getElementById("lastReportCard");
+  const body=document.getElementById("lastReportBody");
+  if(text){
+    body.textContent=text;
+    card.classList.remove("hidden");
+  }else card.classList.add("hidden");
+}
+
+document.getElementById("saveReportBtn").onclick=()=>{
+  const input=document.getElementById("reportInput");
+  const status=document.getElementById("reportStatus");
+  const text=input.value.trim();
+
+  if(!text){status.textContent="⚠️ Colle d’abord le bilan";return}
+  if(!text.includes("BILAN LINGUA COACH") || !text.includes("FIN BILAN")){
+    status.textContent="⚠️ Bloc de bilan incomplet";return
+  }
+
+  const parsed=parseReport(text);
+  mergeErrors(parsed.errors);
+  localStorage.setItem("lingua-coach-last-report",text);
+  localStorage.setItem("lingua-coach-last-report-date",new Date().toISOString());
+  status.textContent=parsed.errors.length
+    ? `✅ Bilan enregistré · ${parsed.errors.length} fiche${parsed.errors.length>1?"s":""} ajoutée${parsed.errors.length>1?"s":""}`
+    : "✅ Bilan enregistré · aucune nouvelle fiche";
+  renderLastReport();
+  renderGrammar();
+  renderGames();
+};
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+function flagForLanguage(language){
+  if(language==="Espagnol") return "🇪🇸";
+  if(language==="Anglais") return "🇬🇧";
+  if(language==="Kreol Morisien") return "🇲🇺";
+  return "🌍";
+}
+
+function renderGrammar(){
+  const lang=LANGS[state.code];
+  let items=getErrors().filter(x=>x.language===lang.report);
+  items.sort((a,b)=>(b.lastSeen||"").localeCompare(a.lastSeen||""));
+  const list=document.getElementById("grammarList");
+  document.getElementById("grammarTitle").textContent=lang.flag+" "+lang.name+" · Grammaire";
+  if(!items.length){
+    list.innerHTML=`<div class="empty">Aucune fiche en ${escapeHtml(lang.name)} pour l’instant.<br>Les prochaines erreurs utiles importées depuis une séance ${escapeHtml(lang.name)} apparaîtront ici.</div>`;
+    return;
+  }
+  list.innerHTML=items.map(x=>`
+    <div class="grammarCard">
+      <div class="gcTop">
+        <div class="gcLang">${flagForLanguage(x.language)} ${escapeHtml(x.language)} · ${escapeHtml(x.type||"")}</div>
+        <div class="gcCount">vue ${x.seen||1}×</div>
+      </div>
+      <div class="block bad"><b>Tu as dit</b>${escapeHtml(x.said)}</div>
+      <div class="block good"><b>Forme naturelle</b>${escapeHtml(x.correction)}</div>
+      <div class="block rule"><b>À retenir</b>${escapeHtml(x.rule)}</div>
+      ${x.example?`<div class="block example"><b>Exemple</b>${escapeHtml(x.example)}</div>`:""}
+    </div>
+  `).join("");
+}
+
+function normalizeAnswer(s){
+  return String(s).normalize("NFC").trim().toLowerCase().replace(/[.!?]+$/,"").replace(/\s+/g," ");
+}
+function gameCandidates(){
+  return getErrors().filter(x=>x.language===LANGS[state.code].report);
+}
+function chooseGame(){
+  const items=gameCandidates();
+  if(!items.length){currentGameId=null;return null}
+  const pool=items.filter(x=>x.id!==currentGameId);
+  const candidates=pool.length?pool:items;
+  candidates.sort((a,b)=>{
+    const ra=(a.attempts||0)?(a.successes||0)/(a.attempts||1):0;
+    const rb=(b.attempts||0)?(b.successes||0)/(b.attempts||1):0;
+    if(ra!==rb) return ra-rb;
+    return (a.lastPracticed||"").localeCompare(b.lastPracticed||"");
+  });
+  return candidates[0];
+}
+function renderGames(newCard=true){
+  const lang=LANGS[state.code];
+  document.getElementById("gamesTitle").textContent=lang.flag+" "+lang.name+" · Jeux";
+  const items=gameCandidates();
+  const empty=document.getElementById("gameEmpty");
+  const card=document.getElementById("gameCard");
+  if(!items.length){
+    empty.classList.remove("hidden");card.classList.add("hidden");currentGameId=null;return;
+  }
+  empty.classList.add("hidden");card.classList.remove("hidden");
+  let item=items.find(x=>x.id===currentGameId);
+  if(newCard || !item){
+    item=chooseGame();
+    currentGameId=item.id;
+  }
+  document.getElementById("gameSentence").textContent=`${flagForLanguage(item.language)} ${item.said}`;
+  document.getElementById("gameAnswer").value="";
+  document.getElementById("gameFeedback").className="hidden";
+  document.getElementById("gameFeedback").innerHTML="";
+  document.getElementById("nextGameBtn").classList.add("hidden");
+  document.getElementById("gameStats").textContent=
+    `${item.successes||0} réussite${(item.successes||0)!==1?"s":""} / ${item.attempts||0} tentative${(item.attempts||0)!==1?"s":""}`;
+}
+function updateGameItem(correct){
+  const items=getErrors();
+  const item=items.find(x=>x.id===currentGameId);
+  if(!item) return null;
+  item.attempts=(item.attempts||0)+1;
+  if(correct) item.successes=(item.successes||0)+1;
+  item.lastPracticed=new Date().toISOString();
+  setErrors(items);
+  return item;
+}
+function showGameFeedback(item,correct){
+  const fb=document.getElementById("gameFeedback");
+  fb.className="feedback "+(correct?"ok":"no");
+  fb.innerHTML=correct
+    ? `✅ Correct.<div class="miniRule">${escapeHtml(item.rule)}</div>`
+    : `Correction : <b>${escapeHtml(item.correction)}</b><div class="miniRule">${escapeHtml(item.rule)}</div>`;
+  document.getElementById("nextGameBtn").classList.remove("hidden");
+  document.getElementById("gameStats").textContent=
+    `${item.successes||0} réussite${(item.successes||0)!==1?"s":""} / ${item.attempts||0} tentative${(item.attempts||0)!==1?"s":""}`;
+  renderGrammar();
+}
+
+document.getElementById("checkGameBtn").onclick=()=>{
+  const items=getErrors();
+  const item=items.find(x=>x.id===currentGameId);
+  if(!item) return;
+  const answer=document.getElementById("gameAnswer").value;
+  if(!answer.trim()) return;
+  const correct=normalizeAnswer(answer)===normalizeAnswer(item.correction);
+  const updated=updateGameItem(correct);
+  showGameFeedback(updated,correct);
+};
+
+document.getElementById("showAnswerBtn").onclick=()=>{
+  const items=getErrors();
+  const item=items.find(x=>x.id===currentGameId);
+  if(!item) return;
+  const updated=updateGameItem(false);
+  showGameFeedback(updated,false);
+};
+
+document.getElementById("nextGameBtn").onclick=()=>renderGames(true);
+document.getElementById("gameAnswer").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){e.preventDefault();document.getElementById("checkGameBtn").click()}
+});
+
+renderDetail();
+renderLastReport();
+renderGrammar();
+renderGames();
 </script>
 </body>
 </html>
