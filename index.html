@@ -204,7 +204,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="savedBody" id="lastReportBody"></div>
 </div>
 
-<div class="version">Lingua Coach V1.12 · Phrases + prononciation Kreol</div>
+<div class="version">Lingua Coach V1.13 · Phrases + prononciation Kreol</div>
 </section>
 
 
@@ -237,7 +237,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div id="courseModules"></div>
 
-<div class="version">Lingua Coach V1.12 · Prononciation Kreol</div>
+<div class="version">Lingua Coach V1.13 · Prononciation Kreol</div>
 </section>
 
 <section id="courseLesson" class="hidden">
@@ -256,7 +256,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   </div>
 </div>
 
-<div class="version">Lingua Coach V1.12 · Cours complet + prononciation</div>
+<div class="version">Lingua Coach V1.13 · Cours complet + prononciation</div>
 </section>
 
 <section id="phrases" class="hidden">
@@ -298,7 +298,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="summary" id="phraseSummary"></div>
 <button class="primary" id="preparePhrasesBtn">🧱 Préparer mon entraînement</button>
-<div class="version">Lingua Coach V1.12 · Construction de phrases</div>
+<div class="version">Lingua Coach V1.13 · Construction de phrases</div>
 </section>
 
 <section id="phraseReady" class="hidden">
@@ -325,7 +325,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 </div>
 
 <div class="note">
-  Dans ChatGPT, réponds à une phrase à la fois. La correction doit rester courte : on vérifie surtout que tu sais reconstruire la bonne forme toi-même.
+  Dans ChatGPT, réponds à une phrase à la fois. La correction reste concise, mais une règle utile doit être assez expliquée pour être comprise : mécanisme, piège éventuel et exemple parlant, puis réutilisation immédiate.
 </div>
 
 <div class="card">
@@ -338,7 +338,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="status" id="phraseReportStatus"></div>
 </div>
 
-<div class="version">Lingua Coach V1.12 · Mémoire active</div>
+<div class="version">Lingua Coach V1.13 · Mémoire active</div>
 </section>
 
 <section id="grammar" class="hidden">
@@ -357,7 +357,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="sectionSub">Tes erreurs réelles deviennent de petites fiches, uniquement pour cette langue.</div>
 <div id="grammarList"></div>
-<div class="version">Lingua Coach V1.12 · Grammaire par langue</div>
+<div class="version">Lingua Coach V1.13 · Grammaire par langue</div>
 </section>
 
 <section id="games" class="hidden">
@@ -391,7 +391,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <button class="ghost hidden" id="nextGameBtn">Phrase suivante</button>
   <div class="statsLine" id="gameStats"></div>
 </div>
-<div class="version">Lingua Coach V1.12 · Jeux par langue</div>
+<div class="version">Lingua Coach V1.13 · Jeux par langue</div>
 </section>
 
 <section id="detail" class="hidden">
@@ -429,7 +429,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="summary" id="summary"></div>
 <button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
-<div class="version">Lingua Coach V1.12</div>
+<div class="version">Lingua Coach V1.13</div>
 </section>
 
 <section id="ready" class="hidden">
@@ -469,7 +469,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="status" id="reportStatus"></div>
 </div>
 
-<div class="version">Lingua Coach V1.12</div>
+<div class="version">Lingua Coach V1.13</div>
 </section>
 
 </main>
@@ -982,7 +982,7 @@ Cible : [nom très court du point, par exemple « por / para », « used to », 
 Statut : [fragile / en progrès / acquis]
 Erreur : [une erreur réellement faite pendant cet entraînement, ou aucune]
 Correction : [forme naturelle correcte correspondant à l'erreur, ou un exemple correct si Erreur = aucune]
-Règle : [une seule règle très courte en français]
+Règle : [sur UNE seule ligne, 1 à 2 phrases claires en français : explique le mécanisme de la règle et le piège utile à éviter]
 Exemple : [un exemple naturel court dans la langue travaillée]
 Réussites : [nombre de réutilisations correctes de ce point pendant cet entraînement]
 FIN POINT
@@ -1042,14 +1042,18 @@ DÉROULEMENT OBLIGATOIRE
 2. Attends ma traduction. Ne donne jamais la réponse avant ma tentative.
 3. Analyse ma réponse immédiatement :
    - ✅ Correct : confirme très brièvement et passe à la suite.
-   - 🟠 Presque : donne la forme naturelle et UNE seule explication utile.
-   - 🔴 À reprendre : corrige brièvement et explique UNE seule règle importante.
+   - 🟠 Presque : donne la forme naturelle, puis explique UNE seule règle ou construction utile.
+   - 🔴 À reprendre : donne la forme naturelle, puis explique UNE seule règle ou construction importante.
+   Pour une erreur grammaticale ou de structure, utilise ce mini-format pédagogique :
+   📘 RÈGLE : explique en 2 à 4 phrases courtes le mécanisme, pas seulement la correction. Dis POURQUOI la forme fonctionne et signale le piège fréquent ou le contraste utile s'il existe.
+   💡 EXEMPLE : donne un exemple simple et naturel dans la langue cible, différent de ma phrase.
+   L'explication doit pouvoir se lire en environ 20 à 40 secondes. Ne transforme pas la correction en cours complet.
 4. Après une erreur utile, ne me demande pas simplement si j'ai compris. TESTE-LE : donne immédiatement une nouvelle phrase très proche qui oblige à réutiliser la même construction.
 5. Si ce réessai est correct, continue. S'il est encore faux, fais un second réessai contrôlé avant d'avancer.
 6. Fais réapparaître discrètement la même difficulté 3 à 5 phrases plus tard avec un autre vocabulaire.
 7. Les points de la MÉMOIRE À RECYCLER ont priorité. Teste-les naturellement sans annoncer à chaque fois que tu les testes. Dans le bilan final, pour un point recyclé, conserve EXACTEMENT le même intitulé « Cible » que dans cette mémoire afin que l'application puisse suivre sa progression.
 8. Accepte les variantes réellement naturelles. Ne force pas une traduction littérale du français.
-9. Une seule règle de grammaire à la fois, en français, très courte. L'objectif principal reste la production.
+9. Une seule règle de grammaire ou construction à la fois, en français. Elle doit être suffisamment détaillée pour que je comprenne le mécanisme : règle générale, raison utile, piège ou contraste si pertinent, puis un exemple parlant. Ensuite reviens immédiatement à la production.
 10. Continue à proposer une nouvelle phrase après chaque réponse jusqu'à ce que j'écrive uniquement « fin ». Il n'y a aucun nombre de phrases prédéfini.
 11. Adapte réellement la complexité au niveau : A1 = structure simple ; A2 = expansions courtes ; B1 = enchaînements courants ; B2 = nuances et structures variées ; C1 = précision, registre et formulations complexes naturelles.
 12. Pour les temps verbaux, privilégie les formes réellement fréquentes dans la langue cible. Ne crée pas des phrases artificielles juste pour faire apparaître un temps. Quand deux temps proches se confondent souvent, fais travailler leur contraste par le contexte.
