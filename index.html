@@ -21,10 +21,12 @@ header{text-align:center;padding:8px 0 12px}
 h1{font-size:36px;letter-spacing:-1px;margin:0}
 .subtitle{font-size:16px;color:var(--muted);margin-top:5px}
 .pill{display:inline-flex;margin-top:12px;padding:9px 14px;background:var(--soft);color:var(--accent);border-radius:999px;font-weight:800;font-size:14px}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 18px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0 18px}
 .tabs.four{grid-template-columns:repeat(4,1fr)}
-.tab{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 6px;font-weight:850;color:var(--muted)}
-.tabs.four .tab{font-size:12.5px;padding:10px 3px}
+.tabs.five{grid-template-columns:repeat(5,1fr);gap:5px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 5px;font-weight:850;color:var(--muted);min-width:0}
+.tabs.four .tab{font-size:12.2px;padding:10px 3px}
+.tabs.five .tab{font-size:10.7px;padding:10px 2px;letter-spacing:-.15px}
 .tab.active{background:var(--soft);border-color:#c9c1f7;color:var(--accent)}
 
 .courseProgress{background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:var(--shadow);margin:12px 0}
@@ -100,6 +102,23 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 .saved{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:var(--shadow)}
 .savedTitle{font-size:13px;color:var(--muted);font-weight:850;margin-bottom:8px}
 .savedBody{white-space:pre-wrap;font-size:13px;line-height:1.5;color:#3f4656}
+
+.phraseMemory{display:grid;gap:8px;margin-top:10px}
+.memoryItem{background:#fafaff;border:1px solid var(--line);border-radius:14px;padding:10px 11px}
+.memoryTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.memoryTarget{font-weight:850;font-size:14px}
+.memoryStatus{white-space:nowrap;font-size:11px;font-weight:850;padding:5px 8px;border-radius:999px;background:#f1f2f6;color:var(--muted)}
+.memoryStatus.fragile{background:#fff0f0;color:#a94141}
+.memoryStatus.progress{background:#fff8e7;color:#8c6412}
+.memoryStatus.mastered{background:#eaf8f1;color:#197a58}
+.memoryRule{font-size:12.5px;color:var(--muted);line-height:1.4;margin-top:5px}
+.phraseHint{font-size:13px;color:var(--muted);line-height:1.5;margin-top:8px}
+.levelGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.levelBtn{border:1px solid var(--line);background:#fff;border-radius:13px;padding:10px 2px;font-weight:850;color:var(--muted)}
+.levelBtn.active{background:var(--soft);border-color:#c9c1f7;color:var(--accent)}
+.countGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.phraseModeBanner{background:linear-gradient(135deg,#f5f0ff,#eef7ff);border:1px solid #dcd7fa;border-radius:18px;padding:14px;margin-bottom:12px;line-height:1.5}
+.phraseModeBanner b{color:var(--accent)}
 .version{text-align:center;color:#9aa0ad;font-size:11px;margin-top:18px}
 .sectionTitle{font-size:29px;font-weight:900;letter-spacing:-.6px;margin:6px 0 2px}
 .sectionSub{color:var(--muted);font-size:14px;line-height:1.45;margin-bottom:10px}
@@ -150,7 +169,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 <section id="home">
 <header>
 <h1>Lingua Coach 🌍</h1>
-<div class="subtitle">Lire • comprendre • parler</div>
+<div class="subtitle">Lire • comprendre • construire • parler</div>
 <div class="pill">🎙️ Trois langues, trois espaces séparés</div>
 </header>
 
@@ -182,7 +201,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="savedBody" id="lastReportBody"></div>
 </div>
 
-<div class="version">Lingua Coach V1.9 · Prononciation Kreol</div>
+<div class="version">Lingua Coach V1.10 · Phrases + prononciation Kreol</div>
 </section>
 
 
@@ -193,8 +212,9 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div><div class="kicker">Parcours grand débutant</div><div class="detail-title" id="courseTitle">🇲🇺 Kreol Morisien · Cours</div></div>
 </div>
 
-<div class="tabs four">
+<div class="tabs five">
   <button class="tab active courseTab" data-langnav="course">🎓 Cours</button>
+  <button class="tab" data-langnav="phrases">🧱 Phrases</button>
   <button class="tab" data-langnav="detail">🎙️ Séance</button>
   <button class="tab" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab" data-langnav="games">🎮 Jeux</button>
@@ -214,7 +234,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div id="courseModules"></div>
 
-<div class="version">Lingua Coach V1.9 · Prononciation Kreol</div>
+<div class="version">Lingua Coach V1.10 · Prononciation Kreol</div>
 </section>
 
 <section id="courseLesson" class="hidden">
@@ -233,7 +253,87 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   </div>
 </div>
 
-<div class="version">Lingua Coach V1.9 · Cours complet + prononciation</div>
+<div class="version">Lingua Coach V1.10 · Cours complet + prononciation</div>
+</section>
+
+<section id="phrases" class="hidden">
+<div class="head">
+  <button class="back" data-back-language>‹</button>
+  <div><div class="kicker">Construire des phrases</div><div class="detail-title" id="phrasesTitle"></div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
+  <button class="tab active" data-langnav="phrases">🧱 Phrases</button>
+  <button class="tab" data-langnav="detail">🎙️ Séance</button>
+  <button class="tab" data-langnav="grammar">📘 Grammaire</button>
+  <button class="tab" data-langnav="games">🎮 Jeux</button>
+</div>
+
+<div class="phraseModeBanner">
+  🧱 Le français sert d'<b>échafaudage</b> : ChatGPT te donne une phrase, tu la reconstruis dans la langue cible, puis il corrige et te fait réutiliser à chaud les points fragiles.
+</div>
+
+<div class="card">
+  <div class="label">Niveau des phrases</div>
+  <div class="levelGrid" id="phraseLevels"></div>
+
+  <div class="label">Thème</div>
+  <div class="themes" id="phraseThemes"></div>
+
+  <div class="label">Nombre de phrases</div>
+  <div class="countGrid" id="phraseCounts"></div>
+</div>
+
+<div class="card">
+  <div class="label">♻️ Mémoire active</div>
+  <div class="phraseHint">Lingua Coach recycle automatiquement jusqu'à 8 points importants des séances précédentes. Un point correctement réutilisé plusieurs fois sort progressivement de la priorité.</div>
+  <div class="phraseMemory" id="phraseMemoryList"></div>
+</div>
+
+<div class="summary" id="phraseSummary"></div>
+<button class="primary" id="preparePhrasesBtn">🧱 Préparer mon entraînement</button>
+<div class="version">Lingua Coach V1.10 · Construction de phrases</div>
+</section>
+
+<section id="phraseReady" class="hidden">
+<div class="head">
+  <button class="back" id="phraseReadyBackBtn">‹</button>
+  <div><div class="kicker">Entraînement prêt</div><div class="detail-title">Direction ChatGPT</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
+  <button class="tab active" data-langnav="phrases">🧱 Phrases</button>
+  <button class="tab" data-langnav="detail">🎙️ Séance</button>
+  <button class="tab" data-langnav="grammar">📘 Grammaire</button>
+  <button class="tab" data-langnav="games">🎮 Jeux</button>
+</div>
+
+<div class="card">
+  <div class="label">Projet ChatGPT</div>
+  <div class="project" id="phraseProjectName"></div>
+  <div class="prompt" id="phrasePrompt"></div>
+  <button class="primary" id="copyPhraseBtn">📋 Copier la consigne</button>
+  <div class="status" id="phraseStatus"></div>
+  <button class="secondary" id="openPhraseBtn">💬 Ouvrir ChatGPT</button>
+</div>
+
+<div class="note">
+  Dans ChatGPT, réponds à une phrase à la fois. La correction doit rester courte : on vérifie surtout que tu sais reconstruire la bonne forme toi-même.
+</div>
+
+<div class="card">
+  <div class="label">↩️ Après l'entraînement</div>
+  <div style="font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:10px">
+    Écris <b>fin</b> dans ChatGPT, copie le bloc <b>BILAN LINGUA COACH</b>, puis colle-le ici. Les points importants alimenteront automatiquement la prochaine séance 🧱 Phrases, la 📘 Grammaire et les 🎮 Jeux.
+  </div>
+  <textarea id="phraseReportInput" placeholder="Colle ici le bloc BILAN LINGUA COACH…"></textarea>
+  <button class="primary" id="savePhraseReportBtn">✅ Enregistrer le bilan</button>
+  <div class="status" id="phraseReportStatus"></div>
+</div>
+
+<div class="version">Lingua Coach V1.10 · Mémoire active</div>
 </section>
 
 <section id="grammar" class="hidden">
@@ -244,6 +344,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="tabs">
   <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
+  <button class="tab" data-langnav="phrases">🧱 Phrases</button>
   <button class="tab" data-langnav="detail">🎙️ Séance</button>
   <button class="tab active" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab" data-langnav="games">🎮 Jeux</button>
@@ -251,7 +352,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="sectionSub">Tes erreurs réelles deviennent de petites fiches, uniquement pour cette langue.</div>
 <div id="grammarList"></div>
-<div class="version">Lingua Coach V1.9 · Grammaire par langue</div>
+<div class="version">Lingua Coach V1.10 · Grammaire par langue</div>
 </section>
 
 <section id="games" class="hidden">
@@ -262,6 +363,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="tabs">
   <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
+  <button class="tab" data-langnav="phrases">🧱 Phrases</button>
   <button class="tab" data-langnav="detail">🎙️ Séance</button>
   <button class="tab" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab active" data-langnav="games">🎮 Jeux</button>
@@ -284,7 +386,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <button class="ghost hidden" id="nextGameBtn">Phrase suivante</button>
   <div class="statsLine" id="gameStats"></div>
 </div>
-<div class="version">Lingua Coach V1.9 · Jeux par langue</div>
+<div class="version">Lingua Coach V1.10 · Jeux par langue</div>
 </section>
 
 <section id="detail" class="hidden">
@@ -300,6 +402,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="tabs">
   <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
+  <button class="tab" data-langnav="phrases">🧱 Phrases</button>
   <button class="tab active" data-langnav="detail">🎙️ Séance</button>
   <button class="tab" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab" data-langnav="games">🎮 Jeux</button>
@@ -321,7 +424,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="summary" id="summary"></div>
 <button class="primary" id="prepareBtn">🎙️ Préparer ma séance</button>
-<div class="version">Lingua Coach V1.9</div>
+<div class="version">Lingua Coach V1.10</div>
 </section>
 
 <section id="ready" class="hidden">
@@ -332,6 +435,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
 
 <div class="tabs">
   <button class="tab courseTab hidden" data-langnav="course">🎓 Cours</button>
+  <button class="tab" data-langnav="phrases">🧱 Phrases</button>
   <button class="tab active" data-langnav="detail">🎙️ Séance</button>
   <button class="tab" data-langnav="grammar">📘 Grammaire</button>
   <button class="tab" data-langnav="games">🎮 Jeux</button>
@@ -360,7 +464,7 @@ textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:
   <div class="status" id="reportStatus"></div>
 </div>
 
-<div class="version">Lingua Coach V1.9</div>
+<div class="version">Lingua Coach V1.10</div>
 </section>
 
 </main>
@@ -387,7 +491,7 @@ const KREOL_THEMES=[
 const KREOL_COURSES=[{"n":1,"module":"1 · Fondations","title":"Bonzour !","meta":"Saluer et répondre","goal":"Saluer naturellement et répondre en une phrase courte.","targets":[["bonzour","bonjour"],["ki manier?","comment ça va ?"],["bien","bien"],["mersi","merci"],["mersi boukou","merci beaucoup"],["orevwar","au revoir"],["wi","oui"],["non","non"],["mo","je / moi"],["ou","vous (poli)"]],"phrases":[["Bonzour!","Bonjour !"],["Ki manier?","Comment ça va ?"],["Mo bien, mersi.","Je vais bien, merci."],["Mersi boukou.","Merci beaucoup."],["Orevwar.","Au revoir."]],"bridge":"Beaucoup de mots sont transparents pour un francophone, mais mémorise leur orthographe Kreol telle qu’elle se prononce.","rule":"Mo sert très souvent pour « je / moi ». Commence par apprendre des blocs complets : « Mo bien », « Mo kontan », etc.","dialogue":[["A","Bonzour! Ki manier?"],["B","Mo bien, mersi. Ek ou?"],["A","Mo bien. Mersi."]],"mission":"Salue un voisin imaginaire à Tamarin, demande-lui comment il va et réponds à ton tour.","writeQ":"Écris : « Merci beaucoup »","answers":["mersi boukou"]},{"n":2,"module":"1 · Fondations","title":"Mo apel…","meta":"Se présenter","goal":"Dire ton nom, ton origine et demander le nom de quelqu’un.","targets":[["mo apel","je m’appelle"],["kouma","comment"],["apele","s’appeler"],["to","tu"],["Lafrans","France"],["Moris","Maurice"],["sorti","venir de / être originaire de"],["aprann","apprendre"],["Kreol Morisien","créole mauricien"],["ek","et / avec"]],"phrases":[["Mo apel Paul.","Je m’appelle Paul."],["Kouma ou apele?","Comment vous appelez-vous ?"],["Mo sorti Lafrans.","Je viens de France."],["Mo pe aprann Kreol Morisien.","J’apprends le Kreol Morisien."],["Ek ou?","Et vous ?"]],"bridge":"Apel / apele rappelle « appeler ». Sorti est également très transparent pour un francophone.","rule":"To est familier ; ou est utile pour s’adresser poliment à quelqu’un.","dialogue":[["A","Bonzour. Kouma ou apele?"],["B","Mo apel Paul. Ek ou?"],["A","Mo apel Maya."],["B","Mo pe aprann Kreol Morisien."]],"mission":"Présente-toi en trois petites phrases : nom, origine, langue que tu apprends.","writeQ":"Écris : « Je m’appelle Paul »","answers":["mo apel paul"]},{"n":3,"module":"1 · Fondations","title":"Mo, to, li, nou, zot","meta":"Parler des personnes","goal":"Utiliser les pronoms les plus fréquents sans conjugaison à la française.","targets":[["mo","je / moi"],["to","tu"],["li","il / elle"],["nou","nous"],["zot","vous / ils / elles selon le contexte"],["ou","vous poli"],["sa","ça / cela"],["dimoun","personne / gens"],["kamarad","ami"],["vwazin","voisin"]],"phrases":[["Mo bien.","Je vais bien."],["Li isi.","Il / elle est ici."],["Nou ansam.","Nous sommes ensemble."],["Zot laba.","Ils / elles sont là-bas."],["Sa mo kamarad.","C’est mon ami."]],"bridge":"L’anglais peut t’aider ici : les pronoms ne changent pas de forme selon un système de conjugaison complexe.","rule":"En Kreol, on ne conjugue pas le verbe comme en français. Le pronom reste devant la forme verbale.","dialogue":[["A","Sa kisannla?"],["B","Sa mo kamarad."],["A","Li reste isi?"],["B","Wi, li reste pre."]],"mission":"Montre mentalement trois personnes et dis : « li », « nou », « zot » dans trois mini-phrases.","writeQ":"Écris le pronom Kreol pour « nous »","answers":["nou"]},{"n":4,"module":"1 · Fondations","title":"Mo pa konpran","meta":"Phrase de survie","goal":"Dire que tu ne comprends pas et faire ralentir la conversation.","targets":[["pa","ne… pas"],["konpran","comprendre"],["kapav","pouvoir"],["repet","répéter"],["sa","ça"],["silvouple","s’il vous plaît"],["koz","parler"],["pli dousman","plus lentement"],["ki savedir?","qu’est-ce que ça veut dire ?"],["aster","maintenant"]],"phrases":[["Mo pa konpran.","Je ne comprends pas."],["Kapav repet sa, silvouple?","Pouvez-vous répéter, s’il vous plaît ?"],["Koz pli dousman, silvouple.","Parlez plus lentement, s’il vous plaît."],["Ki savedir sa?","Qu’est-ce que ça veut dire ?"],["Aster mo konpran.","Maintenant je comprends."]],"bridge":"Konpran, repet et silvouple sont très accessibles avec le français. La structure, elle, reste Kreol.","rule":"Pa porte la négation : « Mo konpran » → je comprends ; « Mo pa konpran » → je ne comprends pas.","dialogue":[["A","Nou zwenn dime gramatin."],["B","Mo pa konpran. Kapav repet sa?"],["A","Dime gramatin."],["B","Wi, aster mo konpran."]],"mission":"Dis à voix haute : « Mo pa konpran. Koz pli dousman, silvouple. »","writeQ":"Écris : « Je ne comprends pas »","answers":["mo pa konpran"]},{"n":5,"module":"1 · Fondations","title":"Mersi, silvouple","meta":"Politesse utile","goal":"Adoucir une demande et gérer les petits échanges sociaux.","targets":[["silvouple","s’il vous plaît"],["mersi","merci"],["mersi boukou","merci beaucoup"],["eskiz mwa","excusez-moi"],["pardon","pardon"],["pena problem","pas de problème"],["korek","d’accord / correct"],["bien","bien"],["atann","attendre"],["enn tigit","un petit peu"]],"phrases":[["Eskiz mwa.","Excusez-moi."],["Atann enn tigit, silvouple.","Attendez un petit peu, s’il vous plaît."],["Korek, mersi.","D’accord, merci."],["Pena problem.","Pas de problème."],["Mersi boukou pou ou led.","Merci beaucoup pour votre aide."]],"bridge":"Ici, ton français donne beaucoup de raccourcis lexicaux. L’objectif est de rendre ces formes automatiques à l’oral.","rule":"Apprends les expressions de politesse comme des blocs entiers plutôt que mot par mot.","dialogue":[["A","Eskiz mwa, kapav atann enn tigit?"],["B","Wi, pena problem."],["A","Mersi boukou."],["B","Korek."]],"mission":"Fais une demande polie en utilisant « eskiz mwa » + « silvouple ».","writeQ":"Écris : « Pas de problème »","answers":["pena problem"]},{"n":6,"module":"1 · Fondations","title":"Zero ziska dis","meta":"Nombres 0 à 10","goal":"Comprendre et dire les nombres indispensables aux prix, quantités et heures.","targets":[["zero","0"],["enn","1"],["de","2"],["trwa","3"],["kat","4"],["sink","5"],["sis","6"],["set","7"],["wit","8"],["nef / dis","9 / 10"]],"phrases":[["enn kafe","un café"],["de boutey delo","deux bouteilles d’eau"],["trwa dimoun","trois personnes"],["sink minit","cinq minutes"],["dis roupi","dix roupies"]],"bridge":"Les nombres ressemblent fortement au français, mais l’écriture suit la prononciation Kreol.","rule":"Enn est à la fois le nombre « un » et un déterminant très fréquent, proche de « un / une ».","dialogue":[["A","Konbien kafe?"],["B","De kafe."],["A","Ek delo?"],["B","Enn boutey."]],"mission":"Compte de zero à dis deux fois, puis dis trois petites quantités.","writeQ":"Écris le nombre « trois » en Kreol","answers":["trwa"]},{"n":7,"module":"2 · Manger, boire, acheter","title":"Mo anvi…","meta":"Exprimer un besoin","goal":"Dire ce que tu veux ou ce dont tu as envie.","targets":[["anvi","avoir envie / vouloir"],["bizin","avoir besoin"],["pran","prendre"],["donn","donner"],["enn","un / une"],["sa","ça"],["isi","ici"],["laba","là-bas"],["ankor","encore"],["ase","assez"]],"phrases":[["Mo anvi enn kafe.","Je voudrais un café."],["Mo bizin delo.","J’ai besoin d’eau."],["Mo pou pran sa.","Je vais prendre ça."],["Donn mwa enn tigit, silvouple.","Donnez-m’en un peu, s’il vous plaît."],["Ase, mersi.","Ça suffit, merci."]],"bridge":"Anvi vient clairement de « envie ». C’est une structure très rentable pour commencer à parler.","rule":"« Mo anvi + nom / action » est une formule simple et naturelle pour exprimer une envie.","dialogue":[["A","Ki ou anvi?"],["B","Mo anvi enn kafe."],["A","Ankor kiksoz?"],["B","Non, ase. Mersi."]],"mission":"Demande une boisson puis un objet en utilisant « Mo anvi… » et « Mo bizin… ».","writeQ":"Écris : « Je voudrais un café »","answers":["mo anvi enn kafe"]},{"n":8,"module":"2 · Manger, boire, acheter","title":"Kafe ek delo","meta":"Boissons","goal":"Commander les boissons les plus courantes et préciser chaud, froid, sucre.","targets":[["kafe","café"],["delo","eau"],["dite","thé"],["zi","jus"],["dile","lait"],["labier","bière"],["so","chaud"],["fre","frais / froid"],["sik","sucre"],["san","sans"]],"phrases":[["Enn kafe, silvouple.","Un café, s’il vous plaît."],["Mo anvi delo fre.","Je voudrais de l’eau fraîche."],["Dite san sik.","Thé sans sucre."],["Enn zi, silvouple.","Un jus, s’il vous plaît."],["Kafe-la tro so.","Le café est trop chaud."]],"bridge":"Kafe, dite, dile et sik sont faciles à relier au français. Profite du pont, mais retiens la forme Kreol.","rule":"San = « sans ». Tu peux créer beaucoup de demandes : san sik, san dile, etc.","dialogue":[["A","Ki ou pou bwar?"],["B","Enn kafe san sik."],["A","So ouswa fre?"],["B","So, silvouple."]],"mission":"Commande deux boissons différentes avec une précision.","writeQ":"Écris : « thé sans sucre »","answers":["dite san sik"]},{"n":9,"module":"2 · Manger, boire, acheter","title":"Dan restoran","meta":"Commander un repas","goal":"Commander simplement au restaurant et demander l’addition.","targets":[["restoran","restaurant"],["meni","menu"],["manze","manger / nourriture"],["komann","commander"],["diri","riz"],["poul","poulet"],["pwason","poisson"],["legim","légumes"],["bon","bon"],["ladision","addition"]],"phrases":[["Mo anvi get meni.","Je voudrais voir le menu."],["Mo pou komann diri ek poul.","Je vais commander du riz et du poulet."],["Sa bien bon.","C’est très bon."],["Mo finn fini manze.","J’ai fini de manger."],["Ladision, silvouple.","L’addition, s’il vous plaît."]],"bridge":"Restoran, meni, poul et ladision montrent encore le fort lien lexical avec le français.","rule":"Ek = « et / avec » selon le contexte : diri ek poul = riz et / avec poulet.","dialogue":[["A","Ki ou pou komann?"],["B","Diri ek pwason, silvouple."],["A","Kiksoz pou bwar?"],["B","Delo fre."]],"mission":"Commande un plat et une boisson, puis demande l’addition.","writeQ":"Écris : « l’addition, s’il vous plaît »","answers":["ladision silvouple","ladision, silvouple"]},{"n":10,"module":"2 · Manger, boire, acheter","title":"Manze Moris","meta":"Aliments utiles","goal":"Reconnaître et nommer des aliments très fréquents.","targets":[["dipin","pain"],["diri","riz"],["kari","cari"],["pwason","poisson"],["poul","poulet"],["legim","légumes"],["frwi","fruits"],["gato","gâteau / snack selon contexte"],["pima","piment"],["disel","sel"]],"phrases":[["Mo kontan kari.","J’aime le cari."],["Mo pa anvi pima.","Je ne veux pas de piment."],["Ena pwason?","Il y a du poisson ?"],["Legim-la bien bon.","Les légumes sont très bons."],["Mo pou pran frwi.","Je vais prendre des fruits."]],"bridge":"Une grande partie de ce vocabulaire est transparente. Les mots les moins transparents deviennent prioritaires à mémoriser.","rule":"Ena = « il y a / avoir disponible ». Pena = « il n’y en a pas ».","dialogue":[["A","Ena pwason zordi?"],["B","Wi, ena pwason ek legim."],["A","Korek. San pima, silvouple."],["B","Wi."]],"mission":"Compose ton repas idéal en trois éléments et ajoute « san pima » si tu le souhaites.","writeQ":"Écris : « Il y a du poisson ? »","answers":["ena pwason","ena pwason?"]},{"n":11,"module":"2 · Manger, boire, acheter","title":"Konbien sa?","meta":"Prix et paiement","goal":"Demander un prix, accepter ou refuser et payer.","targets":[["konbien","combien"],["pri","prix"],["ser","cher"],["bon marse","bon marché"],["roupi","roupie"],["pey","payer"],["kart","carte"],["larzan","argent"],["pran","prendre"],["tro","trop"]],"phrases":[["Konbien sa?","Combien ça coûte ?"],["Sa tro ser.","C’est trop cher."],["Pri-la korek.","Le prix est correct."],["Mo pou pran sa.","Je vais prendre ça."],["Mo pey par kart.","Je paie par carte."]],"bridge":"Konbien, pri, ser, kart sont de bons exemples de vocabulaire immédiatement reconnaissable.","rule":"Tro = « trop » et se place avant l’adjectif : tro ser, tro so, tro pike.","dialogue":[["A","Konbien sa?"],["B","De-san roupi."],["A","Korek. Mo pou pran sa."],["B","Ou pey kouma?"],["A","Par kart."]],"mission":"Imagine un achat : demande le prix, réagis, puis dis comment tu paies.","writeQ":"Écris : « C’est trop cher »","answers":["sa tro ser"]},{"n":12,"module":"2 · Manger, boire, acheter","title":"Dan bazar","meta":"Marché et quantités","goal":"Acheter une petite quantité de produits au marché.","targets":[["bazar","marché"],["aste","acheter"],["vann","vendre"],["kilo","kilo"],["lamwatie","moitié"],["tigit","petit peu"],["plis","plus"],["mwins","moins"],["tomat","tomate"],["banann","banane"]],"phrases":[["Mo pe rod tomat.","Je cherche des tomates."],["Donn mwa enn kilo, silvouple.","Donnez-moi un kilo, s’il vous plaît."],["Lamwatie kilo ase.","Un demi-kilo suffit."],["Enn tigit plis.","Un peu plus."],["Mo pou aste banann osi.","Je vais aussi acheter des bananes."]],"bridge":"Au marché, les chiffres + quantités + quelques noms de produits donnent très vite une vraie autonomie.","rule":"Pe marque souvent une action en cours : « Mo pe rod » = je suis en train de chercher / je cherche.","dialogue":[["A","Ki ou pe rod?"],["B","Tomat. Konbien enn kilo?"],["A","Sinkant roupi."],["B","Donn mwa enn kilo, silvouple."]],"mission":"Achète deux produits avec deux quantités différentes.","writeQ":"Écris : « Je cherche des tomates »","answers":["mo pe rod tomat"]},{"n":13,"module":"3 · Se déplacer","title":"Kot… ete?","meta":"Demander où","goal":"Demander où se trouve quelque chose ou quelqu’un.","targets":[["kot","où"],["ete","être / se trouver"],["isi","ici"],["laba","là-bas"],["pre","près"],["lwin","loin"],["twalet","toilettes"],["laplaz","plage"],["restoran","restaurant"],["magazin","magasin"]],"phrases":[["Kot twalet ete?","Où sont les toilettes ?"],["Kot laplaz ete?","Où est la plage ?"],["Li isi.","C’est ici."],["Li laba.","C’est là-bas."],["Li pa lwin.","Ce n’est pas loin."]],"bridge":"Kot est un mot-question essentiel. Retenir le patron « Kot X ete? » permet de fabriquer beaucoup de phrases.","rule":"« Kot + nom + ete? » = où se trouve… ?","dialogue":[["A","Eskiz mwa. Kot laplaz ete?"],["B","Laba. Li pa lwin."],["A","Mersi boukou."],["B","Pena problem."]],"mission":"Demande où se trouvent trois lieux différents.","writeQ":"Écris : « Où est la plage ? »","answers":["kot laplaz ete","kot laplaz ete?"]},{"n":14,"module":"3 · Se déplacer","title":"Gos, drwat, pre, lwin","meta":"Comprendre une direction","goal":"Comprendre les indications les plus simples.","targets":[["gos","gauche"],["drwat","droite"],["devan","devant"],["deryer","derrière"],["pre","près"],["lwin","loin"],["direk","tout droit / direct"],["tourne","tourner"],["kontinie","continuer"],["sime","chemin / route"]],"phrases":[["Tourne gos.","Tournez à gauche."],["Tourne drwat.","Tournez à droite."],["Kontinie direk.","Continuez tout droit."],["Li zis devan.","C’est juste devant."],["Sime-la kout.","Le chemin est court."]],"bridge":"Gos et drwat sont suffisamment différents du français pour mériter une vraie répétition.","rule":"Les indications peuvent être très courtes. Inutile de fabriquer une longue phrase française.","dialogue":[["A","Kot magazin ete?"],["B","Kontinie direk, apre tourne drwat."],["A","Li lwin?"],["B","Non, li pre."]],"mission":"Donne mentalement un itinéraire de deux étapes : tout droit puis gauche ou droite.","writeQ":"Écris : « Tournez à droite »","answers":["tourne drwat"]},{"n":15,"module":"3 · Se déplacer","title":"Bis ek lagar","meta":"Prendre le bus","goal":"Demander un bus, attendre et savoir où descendre.","targets":[["bis","bus"],["lagar","gare / station"],["tiket","ticket"],["atann","attendre"],["monte","monter"],["desann","descendre"],["ale","aller"],["arive","arriver"],["prosen","prochain"],["are","arrêt"]],"phrases":[["Ki bis al Tamarin?","Quel bus va à Tamarin ?"],["Mo pe atann bis.","J’attends le bus."],["Kot mo bizin desann?","Où dois-je descendre ?"],["Prosen are, silvouple.","Prochain arrêt, s’il vous plaît."],["Nou finn arive.","Nous sommes arrivés."]],"bridge":"Le système est très économique : avec bis, ale, atann, desann, tu peux déjà gérer une bonne partie du trajet.","rule":"Bizin = besoin / devoir selon le contexte : « Mo bizin desann » = je dois descendre.","dialogue":[["A","Eskiz mwa, ki bis al Tamarin?"],["B","Bis-la."],["A","Kot mo bizin desann?"],["B","Mo pou dir ou."]],"mission":"Demande quel bus prendre puis où descendre.","writeQ":"Écris : « J’attends le bus »","answers":["mo pe atann bis"]},{"n":16,"module":"3 · Se déplacer","title":"Taxi ek loto","meta":"Trajet en voiture","goal":"Donner une destination et demander de ralentir ou de s’arrêter.","targets":[["taxi","taxi"],["loto","voiture"],["amenn","emmener"],["arete","arrêter"],["isi","ici"],["laba","là-bas"],["dousman","doucement / lentement"],["vit","vite"],["adres","adresse"],["destinasion","destination"]],"phrases":[["Amenn mwa Tamarin, silvouple.","Emmenez-moi à Tamarin, s’il vous plaît."],["Arete isi, silvouple.","Arrêtez-vous ici, s’il vous plaît."],["Pa tro vit.","Pas trop vite."],["Sa mo adres.","C’est mon adresse."],["Nou finn arive?","Nous sommes arrivés ?"]],"bridge":"Taxi, loto, adres, destinasion sont transparents. Concentre ton effort sur amenn, arete et la structure.","rule":"Mwa est la forme forte / objet liée à « moi » dans des expressions comme « amenn mwa ».","dialogue":[["A","Kot ou pe ale?"],["B","Tamarin. Amenn mwa laba, silvouple."],["A","Korek."],["B","Arete isi, silvouple."]],"mission":"Donne une destination et demande de t’arrêter à un endroit.","writeQ":"Écris : « Arrêtez-vous ici, s’il vous plaît »","answers":["arete isi silvouple","arete isi, silvouple"]},{"n":17,"module":"3 · Se déplacer","title":"Ki ler?","meta":"Heure et rendez-vous","goal":"Demander l’heure et fixer un rendez-vous simple.","targets":[["ler","heure"],["ki ler?","à quelle heure ?"],["zordi","aujourd’hui"],["dime","demain"],["yer","hier"],["gramatin","matin"],["midi","midi"],["tanto","après-midi"],["aswar","soir"],["randevou","rendez-vous"]],"phrases":[["Ki ler?","Quelle heure est-il ?"],["Nou zwenn dime.","On se voit demain."],["Randevou gramatin.","Rendez-vous le matin."],["Mo pou vini tanto.","Je viendrai l’après-midi."],["Zordi mo pa kapav.","Aujourd’hui je ne peux pas."]],"bridge":"Ler et randevou sont très transparents. Zordi, dime et tanto sont prioritaires parce qu’ils structurent la vie quotidienne.","rule":"Pou marque souvent le futur ou l’intention : « Mo pou vini » = je viendrai / je vais venir.","dialogue":[["A","Nou zwenn kan?"],["B","Dime gramatin."],["A","Ki ler?"],["B","Ver dis-er."]],"mission":"Fixe un rendez-vous demain matin ou demain après-midi.","writeQ":"Écris : « demain »","answers":["dime"]},{"n":18,"module":"3 · Se déplacer","title":"Bann landrwa itil","meta":"Lieux utiles","goal":"Nommer et chercher les principaux lieux pratiques.","targets":[["famasi","pharmacie"],["lopital","hôpital"],["labank","banque"],["lapos","poste"],["lapolis","police"],["bazar","marché"],["magazin","magasin"],["restoran","restaurant"],["laplaz","plage"],["twalet","toilettes"]],"phrases":[["Kot famasi ete?","Où est la pharmacie ?"],["Mo bizin al labank.","Je dois aller à la banque."],["Lopital li lwin?","L’hôpital est loin ?"],["Bazar ouver zordi?","Le marché est ouvert aujourd’hui ?"],["Ena enn restoran pre?","Il y a un restaurant près d’ici ?"]],"bridge":"Une grande partie des noms de lieux sont immédiatement reconnaissables grâce au français.","rule":"Bann sert souvent à marquer le pluriel devant un nom : bann magazin, bann dimoun.","dialogue":[["A","Ena enn famasi pre?"],["B","Wi, zis devan labank."],["A","Mersi."],["B","Pena problem."]],"mission":"Demande successivement une pharmacie, une banque et des toilettes.","writeQ":"Écris : « pharmacie »","answers":["famasi"]},{"n":19,"module":"4 · Vie quotidienne","title":"Mo reste…","meta":"Dire où l’on habite","goal":"Dire où tu habites et demander où habite quelqu’un.","targets":[["reste","habiter / rester"],["lakaz","maison"],["Tamarin","Tamarin"],["Rivier Nwar","Rivière Noire"],["pre","près"],["lamer","mer"],["montagn","montagne"],["landrwa","endroit"],["trankil","calme"],["kontan","aimer / être content"]],"phrases":[["Mo reste Tamarin.","J’habite à Tamarin."],["Kot to reste?","Où habites-tu ?"],["Mo lakaz pre ar lamer.","Ma maison est près de la mer."],["Landrwa-la bien trankil.","Cet endroit est très calme."],["Mo kontan sa landrwa-la.","J’aime cet endroit."]],"bridge":"Reste, lamer, montagn et trankil sont faciles pour un francophone ; ar = avec / à proximité de est plus important à automatiser.","rule":"« -la » après un nom peut servir à désigner : landrwa-la = cet endroit / l’endroit-là.","dialogue":[["A","Kot to reste?"],["B","Mo reste Tamarin."],["A","Pre ar lamer?"],["B","Wi. Mo kontan sa landrwa-la."]],"mission":"Dis où tu habites et deux caractéristiques de l’endroit.","writeQ":"Écris : « J’habite à Tamarin »","answers":["mo reste tamarin"]},{"n":20,"module":"4 · Vie quotidienne","title":"Dan lakaz","meta":"Pièces et objets","goal":"Nommer les pièces et objets essentiels de la maison.","targets":[["lasam","chambre"],["lakwizinn","cuisine"],["salon","salon"],["laport","porte"],["lafnet","fenêtre"],["latab","table"],["sez","chaise"],["lili","lit"],["lakle","clé"],["zardin","jardin"]],"phrases":[["Lakle lor latab.","La clé est sur la table."],["Ouvrir lafnet.","Ouvre la fenêtre."],["Laport ferme.","La porte est fermée."],["Mo dan lakwizinn.","Je suis dans la cuisine."],["Zardin-la deryer lakaz.","Le jardin est derrière la maison."]],"bridge":"Beaucoup de noms viennent directement du français populaire ou standard. Le vrai travail est de les reconnaître instantanément à l’oral.","rule":"Dan = « dans ». Lor = « sur ». Deux petites prépositions à très haute utilité.","dialogue":[["A","Kot lakle ete?"],["B","Lor latab, dan salon."],["A","Mersi."],["B","Pena problem."]],"mission":"Décris où se trouvent trois objets dans la maison.","writeQ":"Écris : « la clé »","answers":["lakle"]},{"n":21,"module":"4 · Vie quotidienne","title":"Mo leve, mo al…","meta":"Routine quotidienne","goal":"Raconter une routine très simple au présent.","targets":[["leve","se lever"],["dormi","dormir"],["manze","manger"],["bwar","boire"],["ale","aller"],["vini","venir"],["marse","marcher"],["travay","travailler"],["repoze","se reposer"],["lir","lire"]],"phrases":[["Mo leve gramatin.","Je me lève le matin."],["Mo bwar kafe.","Je bois du café."],["Mo al marse.","Je vais marcher."],["Apre mo repoze.","Après, je me repose."],["Aswar mo lir enn tigit.","Le soir, je lis un peu."]],"bridge":"Les verbes sont souvent proches du français, et ils restent stables : pas de tableau de conjugaison à mémoriser.","rule":"Au présent simple, la forme du verbe ne change pas selon la personne.","dialogue":[["A","Ki to fer gramatin?"],["B","Mo leve, mo bwar kafe, apre mo al marse."],["A","Ek aswar?"],["B","Mo repoze."]],"mission":"Raconte ta vraie routine du matin en quatre phrases.","writeQ":"Écris : « je vais marcher »","answers":["mo al marse"]},{"n":22,"module":"4 · Vie quotidienne","title":"Fami","meta":"Parler de sa famille","goal":"Présenter les membres proches de sa famille.","targets":[["fami","famille"],["mama","mère"],["papa","père"],["mari","mari"],["fam","femme / épouse"],["garson","garçon / fils"],["tifi","fille"],["frer","frère"],["ser","sœur"],["zanfan","enfant"]],"phrases":[["Sa mo fam.","C’est ma femme."],["Mo ena enn tifi.","J’ai une fille."],["Mo frer reste Lafrans.","Mon frère habite en France."],["Nou fami ansam.","Notre famille est ensemble."],["Zot mo zanfan.","Ce sont mes enfants."]],"bridge":"Le vocabulaire familial est très transparent, ce qui libère de l’énergie pour travailler les structures.","rule":"Mo devant un nom peut aussi fonctionner comme possessif selon le contexte : mo fam, mo frer.","dialogue":[["A","To ena zanfan?"],["B","Wi, mo ena enn tifi."],["A","Li reste kot?"],["B","Li reste Lafrans."]],"mission":"Présente trois personnes de ta famille.","writeQ":"Écris : « ma sœur »","answers":["mo ser"]},{"n":23,"module":"4 · Vie quotidienne","title":"Mo kontan / mo pa kontan","meta":"Goûts et préférences","goal":"Dire ce que tu aimes, n’aimes pas et préfères.","targets":[["kontan","aimer / content"],["pa kontan","ne pas aimer"],["prefer","préférer"],["bien","bien"],["boukou","beaucoup"],["tigit","un peu"],["sa","ça"],["manze","manger"],["naze","nager"],["vwayaze","voyager"]],"phrases":[["Mo kontan lamer.","J’aime la mer."],["Mo pa kontan tro pima.","Je n’aime pas trop le piment."],["Mo prefer pwason.","Je préfère le poisson."],["Mo kontan vwayaze boukou.","J’aime beaucoup voyager."],["Mo kontan naze osi.","J’aime aussi nager."]],"bridge":"Kontan est un mot central et très productif. Le français t’aide avec prefer, vwayaze, mais pas toujours avec la structure.","rule":"Pa se place avant kontan : mo pa kontan. Tro ajoute « trop » : mo pa kontan tro pima.","dialogue":[["A","To kontan lamer?"],["B","Wi, boukou."],["A","To kontan pima?"],["B","Enn tigit, me pa tro."]],"mission":"Dis trois choses que tu aimes et une que tu n’aimes pas.","writeQ":"Écris : « je préfère le poisson »","answers":["mo prefer pwason"]},{"n":24,"module":"4 · Vie quotidienne","title":"Letan zordi","meta":"Météo","goal":"Comprendre et commenter la météo du jour.","targets":[["letan","temps / météo"],["soley","soleil"],["lapli","pluie"],["divan","vent"],["so","chaud"],["fre","frais"],["niaz","nuage"],["bon","bon"],["move","mauvais"],["zordi","aujourd’hui"]],"phrases":[["Letan bon zordi.","Il fait beau aujourd’hui."],["Ena soley.","Il y a du soleil."],["Pe gagn lapli.","Il pleut."],["Ena boukou divan.","Il y a beaucoup de vent."],["Zordi fer so.","Aujourd’hui il fait chaud."]],"bridge":"Météo quotidienne = excellent terrain pour répéter toujours les mêmes mots avec de petites variations.","rule":"Ena = il y a. Pe peut aussi apparaître dans des descriptions d’événements en cours.","dialogue":[["A","Kouma letan zordi?"],["B","Bien bon. Ena soley."],["A","Ena divan?"],["B","Enn tigit."]],"mission":"Décris la vraie météo en trois phrases.","writeQ":"Écris : « soleil »","answers":["soley"]},{"n":25,"module":"5 · Vivre à Maurice","title":"Laplaz ek lamer","meta":"Plage et baignade","goal":"Parler simplement d’une journée à la mer.","targets":[["laplaz","plage"],["lamer","mer"],["naze","nager"],["delo","eau"],["vag","vague"],["disab","sable"],["soley","soleil"],["serviet","serviette"],["mask","masque"],["plonze","plonger"]],"phrases":[["Nou al laplaz.","Nous allons à la plage."],["Mo anvi naze.","Je veux nager."],["Lamer bien kalm.","La mer est très calme."],["Ena vag zordi.","Il y a des vagues aujourd’hui."],["Mo pran mo mask.","Je prends mon masque."]],"bridge":"Le vocabulaire maritime est en grande partie transparent. Utilise les scènes réelles comme moteur de mémorisation.","rule":"Nou = nous ; la même forme verbale suit : nou al, nou naze, nou pran.","dialogue":[["A","Nou al laplaz?"],["B","Wi. Mo anvi naze."],["A","Pran to mask."],["B","Korek."]],"mission":"Prépare oralement une sortie plage en trois actions.","writeQ":"Écris : « Je veux nager »","answers":["mo anvi naze"]},{"n":26,"module":"5 · Vivre à Maurice","title":"Bato ek lapes","meta":"Bateau et pêche","goal":"Parler d’une petite sortie en bateau et de pêche.","targets":[["bato","bateau"],["lapes","pêche"],["pwason","poisson"],["ale","aller"],["retourne","revenir / retourner"],["gramatin","matin"],["delo","eau"],["soley","soleil"],["kal","calme"],["ansam","ensemble"]],"phrases":[["Nou pran bato gramatin.","Nous prenons le bateau le matin."],["Nou al lapes.","Nous allons pêcher."],["Ena pwason zordi?","Il y a du poisson aujourd’hui ?"],["Lamer bien kalm.","La mer est très calme."],["Nou retourne tanto.","Nous revenons l’après-midi."]],"bridge":"Le sujet bateau/pêche recycle volontairement heure, météo, aller, retour et nourriture.","rule":"La répétition dans des contextes différents est volontaire : elle consolide les mêmes mots sans refaire la même leçon.","dialogue":[["A","Nou al lapes dime?"],["B","Wi, gramatin."],["A","Letan pou bon?"],["B","Wi, lamer pou kalm."]],"mission":"Organise une petite sortie : quand, avec qui, et ce que vous allez faire.","writeQ":"Écris : « nous allons pêcher »","answers":["nou al lapes"]},{"n":27,"module":"5 · Vivre à Maurice","title":"Mo malad","meta":"Santé et aide","goal":"Dire qu’il y a un problème de santé et demander de l’aide.","targets":[["malad","malade"],["dimal","mal / douleur"],["latet","tête"],["vant","ventre"],["dokter","médecin"],["lopital","hôpital"],["led","aide"],["bizin","avoir besoin"],["irzan","urgent"],["apel","appeler"]],"phrases":[["Mo malad.","Je suis malade."],["Mo gagn dimal latet.","J’ai mal à la tête."],["Mo bizin enn dokter.","J’ai besoin d’un médecin."],["Kapav ed mwa?","Pouvez-vous m’aider ?"],["Apel enn dokter, silvouple.","Appelez un médecin, s’il vous plaît."]],"bridge":"En situation importante, privilégie des phrases très courtes et mémorisées plutôt qu’une traduction improvisée.","rule":"Gagn sert dans plusieurs expressions d’état : gagn fin, gagn swaf, gagn dimal.","dialogue":[["A","Ki arive?"],["B","Mo malad. Mo gagn dimal vant."],["A","Ou bizin dokter?"],["B","Wi, silvouple."]],"mission":"Dis clairement un problème simple et demande un médecin.","writeQ":"Écris : « J’ai besoin d’un médecin »","answers":["mo bizin enn dokter"]},{"n":28,"module":"5 · Vivre à Maurice","title":"Telefonn ek mesaz","meta":"Appels et messages","goal":"Gérer une communication simple au téléphone.","targets":[["telefonn","téléphone"],["apel","appeler"],["mesaz","message"],["reponn","répondre"],["atann","attendre"],["aster","maintenant"],["plitar","plus tard"],["nimer","numéro"],["kone","savoir / connaître"],["dir","dire"]],"phrases":[["Mo pou apel twa plitar.","Je t’appellerai plus tard."],["Avoy mwa enn mesaz.","Envoie-moi un message."],["Mo pa kapav reponn aster.","Je ne peux pas répondre maintenant."],["To ena mo nimer?","Tu as mon numéro ?"],["Dir mwa kan to arive.","Dis-moi quand tu arrives."]],"bridge":"Telefonn, mesaz, nimer rendent cette leçon assez transparente ; les verbes dir, avoy, reponn sont à automatiser.","rule":"Twa est une forme forte de « toi » dans certaines positions : apel twa, avek twa, etc.","dialogue":[["A","To kapav koz aster?"],["B","Non. Mo pou apel twa plitar."],["A","Korek. Avoy mwa enn mesaz."],["B","Wi."]],"mission":"Laisse un mini-message : tu ne peux pas parler maintenant, tu rappelleras plus tard.","writeQ":"Écris : « Je t’appellerai plus tard »","answers":["mo pou apel twa plitar"]},{"n":29,"module":"5 · Vivre à Maurice","title":"Finn, pe, pou","meta":"Passé, présent en cours, futur","goal":"Comprendre trois marqueurs extrêmement fréquents pour situer une action.","targets":[["finn","action accomplie / passé"],["pe","action en cours"],["pou","futur / intention"],["deza","déjà"],["ankor","encore"],["aster","maintenant"],["yer","hier"],["zordi","aujourd’hui"],["dime","demain"],["apre","après"]],"phrases":[["Mo finn manze.","J’ai mangé."],["Mo pe manze.","Je suis en train de manger."],["Mo pou manze plitar.","Je mangerai plus tard."],["Mo finn deza vini.","Je suis déjà venu."],["Nou pou zwenn dime.","Nous nous verrons demain."]],"bridge":"Ici, ton anglais peut aider : pense à trois petits marqueurs séparés plutôt qu’à des terminaisons de conjugaison françaises.","rule":"finn = accompli ; pe = en cours ; pou = futur/intention. Le verbe, lui, reste stable.","dialogue":[["A","To finn manze?"],["B","Non, mo pe manze aster."],["A","Apre to pou vini?"],["B","Wi."]],"mission":"Prends un même verbe et dis une phrase avec finn, une avec pe, une avec pou.","writeQ":"Écris : « Je suis en train de manger »","answers":["mo pe manze"]},{"n":30,"module":"5 · Vivre à Maurice","title":"Premie konversasion","meta":"Assembler les briques","goal":"Réutiliser les 29 cours dans une mini-conversation de la vraie vie.","targets":[["kisannla","qui"],["kifer","pourquoi"],["kan","quand"],["kouma","comment"],["kot","où"],["ki","quel / que"],["parski","parce que"],["apre","après"],["me","mais"],["osi","aussi"]],"phrases":[["Kouma ou apele?","Comment vous appelez-vous ?"],["Kot ou reste?","Où habitez-vous ?"],["Ki ou anvi?","Que voulez-vous ?"],["Kifer ou pe aprann Kreol?","Pourquoi apprenez-vous le Kreol ?"],["Mo pe aprann parski mo anvi koz ar dimoun Moris.","J’apprends parce que je veux parler avec les Mauriciens."]],"bridge":"À ce stade, tu ne cherches plus à « connaître des mots » : tu assembles des briques déjà automatisées.","rule":"Les petits mots-question (ki, kot, kan, kouma, kifer) multiplient immédiatement les possibilités de conversation.","dialogue":[["A","Bonzour. Kouma ou apele?"],["B","Mo apel Paul. Mo sorti Lafrans."],["A","Kot ou reste?"],["B","Mo reste Tamarin. Mo pe aprann Kreol Morisien."],["A","Kifer?"],["B","Parski mo anvi koz ar dimoun Moris."]],"mission":"Fais la conversation complète à voix haute sans regarder la traduction, puis passe dans 🎙️ Séance pour un dialogue libre très court.","writeQ":"Écris : « Pourquoi ? »","answers":["kifer","kifer?"]}];
 
 
-const DEFAULT_STATE={code:"es",theme:"Vie quotidienne",duration:5,questions:3,grammarFilter:"all",gameFilter:"all",courseLesson:1,courseDone:[]};
+const DEFAULT_STATE={code:"es",theme:"Vie quotidienne",duration:5,questions:3,grammarFilter:"all",gameFilter:"all",courseLesson:1,courseDone:[],phraseLevels:{es:"B2",en:"B2",mfe:"A1"},phraseThemes:{es:"Vie quotidienne",en:"Vie quotidienne",mfe:"Vie quotidienne"},phraseCounts:{es:15,en:15,mfe:10}};
 let state;
 try{state={...DEFAULT_STATE,...JSON.parse(localStorage.getItem("lingua-coach-v1")||"{}")}}catch(e){state={...DEFAULT_STATE}}
 
@@ -395,6 +499,8 @@ const sections={
   home:document.getElementById("home"),
   course:document.getElementById("course"),
   courseLesson:document.getElementById("courseLesson"),
+  phrases:document.getElementById("phrases"),
+  phraseReady:document.getElementById("phraseReady"),
   grammar:document.getElementById("grammar"),
   games:document.getElementById("games"),
   detail:document.getElementById("detail"),
@@ -408,9 +514,10 @@ function show(name){
   if(name==="course" && state.code!=="mfe") name="detail";
   Object.values(sections).forEach(x=>x.classList.add("hidden"));
   sections[name].classList.remove("hidden");
-  updateLanguageTabs(name);
+  updateLanguageTabs(name==="phraseReady"?"phrases":name==="ready"?"detail":name);
   if(name==="course") renderCourseIndex();
   if(name==="courseLesson") renderCourseLesson();
+  if(name==="phrases") renderPhrases();
   if(name==="grammar") renderGrammar();
   if(name==="games") renderGames();
   window.scrollTo({top:0,behavior:"instant"});
@@ -421,7 +528,8 @@ function updateLanguageTabs(activeName){
   document.querySelectorAll(".courseTab").forEach(b=>b.classList.toggle("hidden",!isKreol));
   document.querySelectorAll(".tabs").forEach(t=>{
     if(t.closest("#home")) return;
-    t.classList.toggle("four",isKreol);
+    t.classList.toggle("five",isKreol);
+    t.classList.toggle("four",!isKreol);
   });
   document.querySelectorAll("[data-langnav]").forEach(b=>{
     b.classList.toggle("active",b.dataset.langnav===activeName);
@@ -454,6 +562,7 @@ function renderDetail(){
 
   document.getElementById("grammarTitle").textContent=l.flag+" "+l.name+" · Grammaire";
   document.getElementById("gamesTitle").textContent=l.flag+" "+l.name+" · Jeux";
+  document.getElementById("phrasesTitle").textContent=l.flag+" "+l.name+" · Phrases";
   document.getElementById("courseTitle").textContent="🇲🇺 Kreol Morisien · Cours";
   updateLanguageTabs("detail");
 
@@ -491,6 +600,7 @@ document.getElementById("backBtn").onclick=()=>show("home");
 document.getElementById("courseBackBtn").onclick=()=>show("home");
 document.getElementById("lessonBackBtn").onclick=()=>show("course");
 document.getElementById("readyBackBtn").onclick=()=>show("detail");
+document.getElementById("phraseReadyBackBtn").onclick=()=>show("phrases");
 
 document.getElementById("duration").oninput=e=>{
   state.duration=Number(e.target.value);
@@ -673,6 +783,302 @@ function renderCourseLesson(){
   };
 }
 
+
+function ensurePhraseState(){
+  if(!state.phraseLevels || typeof state.phraseLevels!=="object") state.phraseLevels={es:"B2",en:"B2",mfe:"A1"};
+  if(!state.phraseThemes || typeof state.phraseThemes!=="object") state.phraseThemes={es:"Vie quotidienne",en:"Vie quotidienne",mfe:"Vie quotidienne"};
+  if(!state.phraseCounts || typeof state.phraseCounts!=="object") state.phraseCounts={es:15,en:15,mfe:10};
+  if(!state.phraseLevels[state.code]) state.phraseLevels[state.code]=state.code==="mfe"?"A1":"B2";
+  if(!state.phraseThemes[state.code]) state.phraseThemes[state.code]="Vie quotidienne";
+  if(!state.phraseCounts[state.code]) state.phraseCounts[state.code]=state.code==="mfe"?10:15;
+}
+
+function getPhraseMemory(){
+  try{return JSON.parse(localStorage.getItem("lingua-coach-phrase-memory")||"[]")}catch(e){return[]}
+}
+function setPhraseMemory(items){localStorage.setItem("lingua-coach-phrase-memory",JSON.stringify(items))}
+function normStatus(s){
+  const x=String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+  if(x.includes("acquis")||x.includes("maitris")) return "acquis";
+  if(x.includes("progres")) return "en progrès";
+  return "fragile";
+}
+function phraseStatusRank(s){return normStatus(s)==="fragile"?0:normStatus(s)==="en progrès"?1:2}
+function phrasePriorities(limit=8){
+  const lang=LANGS[state.code].report;
+  const allMemory=getPhraseMemory().filter(x=>x.language===lang);
+  const memory=allMemory.filter(x=>normStatus(x.status)!=="acquis");
+  memory.sort((a,b)=>phraseStatusRank(a.status)-phraseStatusRank(b.status) || (b.lastSeen||"").localeCompare(a.lastSeen||""));
+  const out=[];
+  const keys=new Set(allMemory.map(x=>String(x.target||x.rule||"").toLowerCase().trim()).filter(Boolean));
+  memory.forEach(x=>{
+    const k=String(x.target||x.rule||"").toLowerCase().trim();
+    if(k && out.length<limit) out.push(x);
+  });
+  if(out.length<limit){
+    const errors=getErrors().filter(x=>x.language===lang).sort((a,b)=>(b.lastSeen||"").localeCompare(a.lastSeen||""));
+    for(const e of errors){
+      const target=(e.rule||e.correction||"").trim();
+      const k=target.toLowerCase();
+      if(!target || keys.has(k)) continue;
+      out.push({language:lang,target,status:"fragile",rule:e.rule||"",example:e.example||e.correction||"",lastSeen:e.lastSeen||""});
+      keys.add(k);
+      if(out.length>=limit) break;
+    }
+  }
+  return out;
+}
+function phraseStatusClass(s){
+  const n=normStatus(s);
+  return n==="fragile"?"fragile":n==="en progrès"?"progress":"mastered";
+}
+function phraseStatusLabel(s){
+  const n=normStatus(s);
+  return n==="fragile"?"🔴 fragile":n==="en progrès"?"🟠 en progrès":"🟢 acquis";
+}
+
+function renderPhrases(){
+  ensurePhraseState();
+  const l=LANGS[state.code];
+  document.getElementById("phrasesTitle").textContent=l.flag+" "+l.name+" · Phrases";
+  const levels=document.getElementById("phraseLevels");
+  levels.innerHTML="";
+  ["A1","A2","B1","B2","C1"].forEach(level=>{
+    const b=document.createElement("button");
+    b.className="levelBtn"+(state.phraseLevels[state.code]===level?" active":"");
+    b.textContent=level;
+    b.onclick=()=>{state.phraseLevels[state.code]=level;saveState();renderPhrases()};
+    levels.appendChild(b);
+  });
+
+  const themeRoot=document.getElementById("phraseThemes");
+  themeRoot.innerHTML="";
+  const list=state.code==="mfe"?KREOL_THEMES:COMMON_THEMES;
+  list.forEach(([icon,name])=>{
+    const b=document.createElement("button");
+    b.className="choice"+(state.phraseThemes[state.code]===name?" active":"");
+    b.textContent=icon+" "+name;
+    b.onclick=()=>{state.phraseThemes[state.code]=name;saveState();renderPhrases()};
+    themeRoot.appendChild(b);
+  });
+
+  const counts=document.getElementById("phraseCounts");
+  counts.innerHTML="";
+  [10,15,20].forEach(n=>{
+    const b=document.createElement("button");
+    b.className="choice"+(Number(state.phraseCounts[state.code])===n?" active":"");
+    b.textContent=n+" phrases";
+    b.onclick=()=>{state.phraseCounts[state.code]=n;saveState();renderPhrases()};
+    counts.appendChild(b);
+  });
+
+  const priorities=phrasePriorities(8);
+  const mem=document.getElementById("phraseMemoryList");
+  if(!priorities.length){
+    mem.innerHTML='<div class="empty">Aucun point prioritaire pour l’instant.<br>Le premier entraînement créera la mémoire active.</div>';
+  }else{
+    mem.innerHTML=priorities.map(x=>`<div class="memoryItem">
+      <div class="memoryTop"><div class="memoryTarget">${escapeHtml(x.target||"Point à revoir")}</div><div class="memoryStatus ${phraseStatusClass(x.status)}">${phraseStatusLabel(x.status)}</div></div>
+      ${x.rule?`<div class="memoryRule">${escapeHtml(x.rule)}</div>`:""}
+    </div>`).join("");
+  }
+  document.getElementById("phraseSummary").textContent=
+    `${l.flag} ${l.name} · ${state.phraseLevels[state.code]} · ${state.phraseThemes[state.code]} · ${state.phraseCounts[state.code]} phrases · ♻️ ${priorities.length} point${priorities.length!==1?"s":""} prioritaire${priorities.length!==1?"s":""}`;
+}
+
+function learnedKreolVocabulary(){
+  const done=courseDoneSet();
+  const words=[];
+  const seen=new Set();
+  KREOL_COURSES.filter(c=>done.has(c.n)).forEach(c=>c.targets.forEach(([kr])=>{
+    const k=kr.toLowerCase();
+    if(!seen.has(k)){seen.add(k);words.push(kr)}
+  }));
+  return words;
+}
+
+function phraseEndBlock(languageName){
+return `Quand j'écris uniquement « fin », arrête immédiatement l'entraînement et affiche un bref bilan en français, puis EXACTEMENT le bloc suivant, facilement copiable :
+
+BILAN LINGUA COACH
+Mode : Phrases
+Langue : ${languageName}
+Niveau : ${state.phraseLevels[state.code]}
+Thème : ${state.phraseThemes[state.code]}
+Phrases travaillées : [nombre réellement travaillé]
+Réussite : [très bref]
+POINTS ACTIFS
+Pour chaque difficulté importante réellement testée pendant cet entraînement, et pour les anciens points recyclés qui ont été retestés, ajoute un bloc au format exact :
+POINT
+Cible : [nom très court du point, par exemple « por / para », « used to », « finn / pe / pou »]
+Statut : [fragile / en progrès / acquis]
+Erreur : [une erreur réellement faite pendant cet entraînement, ou aucune]
+Correction : [forme naturelle correcte correspondant à l'erreur, ou un exemple correct si Erreur = aucune]
+Règle : [une seule règle très courte en français]
+Exemple : [un exemple naturel court dans la langue travaillée]
+Réussites : [nombre de réutilisations correctes de ce point pendant cet entraînement]
+FIN POINT
+Ne conserve que les points pédagogiquement importants, maximum 8.
+S'il n'y a aucun point important à mémoriser, écris simplement « aucune » sous POINTS ACTIFS puis FIN BILAN.
+Ne marque « acquis » qu'après plusieurs productions correctes, pas après une simple explication.
+N'invente jamais une erreur.
+FIN BILAN
+
+N'ajoute aucun commentaire après FIN BILAN.`;
+}
+
+function buildPhrasePrompt(){
+  ensurePhraseState();
+  const l=LANGS[state.code];
+  const level=state.phraseLevels[state.code];
+  const theme=state.phraseThemes[state.code];
+  const count=state.phraseCounts[state.code];
+  const priorities=phrasePriorities(8);
+  const memory=priorities.length?priorities.map((x,i)=>`${i+1}. ${x.target||x.rule} — ${normStatus(x.status)}${x.rule?` — ${x.rule}`:""}`).join("\n"):"aucun point mémorisé pour l'instant";
+  let languageInstruction="";
+  if(state.code==="es") languageInstruction="La langue cible est l'espagnol naturel. Accepte toute traduction naturelle correcte, même si elle diffère de ta formulation modèle.";
+  else if(state.code==="en") languageInstruction="La langue cible est l'anglais naturel. Accepte toute traduction naturelle correcte, même si elle diffère de ta formulation modèle.";
+  else languageInstruction="La langue cible est le Kreol Morisien naturel avec une orthographe standard cohérente. Pour A1/A2, privilégie des formulations très courtes et immédiatement utiles à Maurice.";
+
+  let kreolGuard="";
+  if(state.code==="mfe"){
+    const vocab=learnedKreolVocabulary();
+    const done=[...courseDoneSet()].sort((a,b)=>a-b);
+    kreolGuard=`\nPARCOURS KREOL TERMINÉ DANS L'APP : ${done.length?done.join(", "):"aucun cours marqué terminé"}.\nVOCABULAIRE DÉJÀ MARQUÉ COMME APPRIS DANS LES COURS : ${vocab.length?vocab.join(", "):"pas encore de liste"}.\nÀ A1/A2, utilise prioritairement ce vocabulaire et n'ajoute que très peu de mots nouveaux à la fois.`;
+  }
+
+  return `ENTRAÎNEMENT LINGUA COACH · CONSTRUCTION DE PHRASES
+LANGUE : ${l.report}
+NIVEAU : ${level}
+THÈME : ${theme}
+OBJECTIF : ${count} phrases françaises à traduire vers la langue cible
+MODE : une phrase à la fois
+
+${languageInstruction}
+Le niveau ${level} est le niveau DE CET EXERCICE. Respecte-le même si mon niveau général indiqué ailleurs est différent.
+
+BUT PÉDAGOGIQUE
+Je veux devenir plus rapide et plus juste pour CONSTRUIRE mes propres phrases. Le français est seulement le point de départ. Ne fais pas un cours théorique : fais-moi produire.
+
+MÉMOIRE À RECYCLER EN PRIORITÉ
+${memory}
+${kreolGuard}
+
+DÉROULEMENT OBLIGATOIRE
+1. Donne UNE seule phrase naturelle en français, adaptée au niveau ${level} et au thème « ${theme} ».
+2. Attends ma traduction. Ne donne jamais la réponse avant ma tentative.
+3. Analyse ma réponse immédiatement :
+   - ✅ Correct : confirme très brièvement et passe à la suite.
+   - 🟠 Presque : donne la forme naturelle et UNE seule explication utile.
+   - 🔴 À reprendre : corrige brièvement et explique UNE seule règle importante.
+4. Après une erreur utile, ne me demande pas simplement si j'ai compris. TESTE-LE : donne immédiatement une nouvelle phrase très proche qui oblige à réutiliser la même construction.
+5. Si ce réessai est correct, continue. S'il est encore faux, fais un second réessai contrôlé avant d'avancer.
+6. Fais réapparaître discrètement la même difficulté 3 à 5 phrases plus tard avec un autre vocabulaire.
+7. Les points de la MÉMOIRE À RECYCLER ont priorité. Teste-les naturellement sans annoncer à chaque fois que tu les testes. Dans le bilan final, pour un point recyclé, conserve EXACTEMENT le même intitulé « Cible » que dans cette mémoire afin que l'application puisse suivre sa progression.
+8. Accepte les variantes réellement naturelles. Ne force pas une traduction littérale du français.
+9. Une seule règle de grammaire à la fois, en français, très courte. L'objectif principal reste la production.
+10. Compte les phrases proposées et vise ${count} phrases, sans compter comme nouvelles phrases les réessais immédiats après erreur.
+11. Adapte réellement la complexité au niveau : A1 = structure simple ; A2 = expansions courtes ; B1 = enchaînements courants ; B2 = nuances et structures variées ; C1 = précision, registre et formulations complexes naturelles.
+
+${phraseEndBlock(l.report)}
+
+Commence directement par la phrase française n°1.`;
+}
+
+function parsePhrasePoints(text){
+  const lines=text.split(/\r?\n/).map(x=>x.trim());
+  let language="",level="",theme="";
+  for(const line of lines){
+    if(line.toLowerCase().startsWith("langue :")) language=field(line,"Langue :");
+    else if(line.toLowerCase().startsWith("niveau :")) level=field(line,"Niveau :");
+    else if(line.toLowerCase().startsWith("thème :")) theme=field(line,"Thème :");
+  }
+  const points=[];
+  for(let i=0;i<lines.length;i++){
+    if(lines[i]!=="POINT") continue;
+    const p={target:"",status:"fragile",error:"",correction:"",rule:"",example:"",successes:0};
+    i++;
+    while(i<lines.length && lines[i]!=="FIN POINT"){
+      const line=lines[i];
+      if(line.toLowerCase().startsWith("cible :")) p.target=field(line,"Cible :");
+      else if(line.toLowerCase().startsWith("statut :")) p.status=normStatus(field(line,"Statut :"));
+      else if(line.toLowerCase().startsWith("erreur :")) p.error=field(line,"Erreur :");
+      else if(line.toLowerCase().startsWith("correction :")) p.correction=field(line,"Correction :");
+      else if(line.toLowerCase().startsWith("règle :")) p.rule=field(line,"Règle :");
+      else if(line.toLowerCase().startsWith("exemple :")) p.example=field(line,"Exemple :");
+      else if(line.toLowerCase().startsWith("réussites :")) p.successes=parseInt(field(line,"Réussites :"),10)||0;
+      i++;
+    }
+    if(p.target && p.rule){p.language=language||LANGS[state.code].report;p.level=level;p.theme=theme||state.phraseThemes[state.code];points.push(p)}
+  }
+  return {language,level,theme,points};
+}
+
+function mergePhrasePoints(points){
+  const items=getPhraseMemory();
+  const now=new Date().toISOString();
+  points.forEach(p=>{
+    const key=(p.language+"|"+p.target).toLowerCase().trim();
+    const id=makeId("phrase|"+key);
+    const found=items.find(x=>x.id===id);
+    if(found){
+      found.status=normStatus(p.status);
+      found.rule=p.rule||found.rule;
+      found.example=p.example||p.correction||found.example;
+      found.lastSeen=now;
+      found.seen=(found.seen||1)+1;
+      found.successes=Math.max(found.successes||0,p.successes||0);
+      found.level=p.level||found.level;
+      found.theme=p.theme||found.theme;
+    }else{
+      items.push({id,language:p.language,target:p.target,status:normStatus(p.status),rule:p.rule,example:p.example||p.correction||"",firstSeen:now,lastSeen:now,seen:1,successes:p.successes||0,level:p.level||"",theme:p.theme||""});
+    }
+  });
+  setPhraseMemory(items);
+}
+
+function phrasePointsToErrors(points){
+  return points.filter(p=>p.error && p.error.toLowerCase()!=="aucune" && p.correction && p.rule).map(p=>({
+    language:p.language,theme:p.theme,said:p.error,correction:p.correction,type:"grammaire / expression",rule:p.rule,example:p.example||""
+  }));
+}
+
+function errorsToPhrasePoints(errors){
+  return errors.filter(p=>p.rule).map(p=>({language:p.language,target:p.rule,status:"fragile",rule:p.rule,example:p.example||p.correction||"",successes:0,level:"",theme:p.theme||""}));
+}
+
+function preparePhraseReady(){
+  const l=LANGS[state.code];
+  document.getElementById("phraseProjectName").textContent=l.project;
+  document.getElementById("phrasePrompt").textContent=buildPhrasePrompt();
+  document.getElementById("phraseStatus").textContent="";
+  document.getElementById("phraseReportStatus").textContent="";
+  document.getElementById("phraseReportInput").value="";
+  show("phraseReady");
+}
+
+document.getElementById("preparePhrasesBtn").onclick=preparePhraseReady;
+
+async function copyPhraseText(){
+  const text=buildPhrasePrompt();
+  const status=document.getElementById("phraseStatus");
+  try{
+    await navigator.clipboard.writeText(text);
+    status.textContent="✅ Consigne copiée";return true;
+  }catch(e){
+    try{
+      const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";
+      document.body.appendChild(ta);ta.select();const ok=document.execCommand("copy");ta.remove();
+      status.textContent=ok?"✅ Consigne copiée":"⚠️ Copie manuelle nécessaire";return !!ok;
+    }catch(err){status.textContent="⚠️ Copie manuelle nécessaire";return false}
+  }
+}
+document.getElementById("copyPhraseBtn").onclick=copyPhraseText;
+document.getElementById("openPhraseBtn").onclick=async()=>{
+  await copyPhraseText();
+  window.location.href="chatgpt://";
+  setTimeout(()=>{if(!document.hidden) window.location.href="https://chatgpt.com/";},900);
+};
 
 function endBlock(languageName){
 return `Quand j'écris uniquement « fin », termine immédiatement avec un bilan bref en français, puis affiche exactement ce bloc facilement copiable :
@@ -901,6 +1307,7 @@ document.getElementById("saveReportBtn").onclick=()=>{
 
   const parsed=parseReport(text);
   mergeErrors(parsed.errors);
+  mergePhrasePoints(errorsToPhrasePoints(parsed.errors));
   localStorage.setItem("lingua-coach-last-report",text);
   localStorage.setItem("lingua-coach-last-report-date",new Date().toISOString());
   status.textContent=parsed.errors.length
@@ -909,6 +1316,28 @@ document.getElementById("saveReportBtn").onclick=()=>{
   renderLastReport();
   renderGrammar();
   renderGames();
+  renderPhrases();
+};
+
+document.getElementById("savePhraseReportBtn").onclick=()=>{
+  const input=document.getElementById("phraseReportInput");
+  const status=document.getElementById("phraseReportStatus");
+  const text=input.value.trim();
+  if(!text){status.textContent="⚠️ Colle d’abord le bilan";return}
+  if(!text.includes("BILAN LINGUA COACH") || !text.includes("FIN BILAN")){
+    status.textContent="⚠️ Bloc de bilan incomplet";return
+  }
+  const parsed=parsePhrasePoints(text);
+  mergePhrasePoints(parsed.points);
+  const phraseErrors=phrasePointsToErrors(parsed.points);
+  mergeErrors(phraseErrors);
+  localStorage.setItem("lingua-coach-last-report",text);
+  localStorage.setItem("lingua-coach-last-report-date",new Date().toISOString());
+  const active=parsed.points.filter(p=>normStatus(p.status)!=="acquis").length;
+  status.textContent=parsed.points.length
+    ? `✅ Bilan enregistré · ${parsed.points.length} point${parsed.points.length>1?"s":""} mémorisé${parsed.points.length>1?"s":""} · ${active} encore actif${active!==1?"s":""}`
+    : "✅ Bilan enregistré · aucun nouveau point prioritaire";
+  renderLastReport();renderGrammar();renderGames();renderPhrases();
 };
 
 function escapeHtml(s){
@@ -1034,6 +1463,7 @@ document.getElementById("gameAnswer").addEventListener("keydown",e=>{
 });
 
 renderDetail();
+renderPhrases();
 renderLastReport();
 renderGrammar();
 renderGames();
